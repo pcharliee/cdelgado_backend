@@ -17,7 +17,7 @@ class Contenedor {
     let self = this;
     fs.promises.readFile(this.file, 'utf-8')
       .catch(function (error) {
-        console.log(`File did not exist. Creating ${self.file}`)
+        console.log(`File did not exist. Creating ${self.file}`);
         fs.promises.open(self.file, 'w');
       })
       .then(function (result) {
@@ -27,16 +27,6 @@ class Contenedor {
         const currentFile = JSON.parse(result);
         let existingItem = currentFile.some(item => item.title == newObject.title);
         if (existingItem) return Promise.reject('Item already exists');
-
-        // let newIndex = false;
-
-        // currentFile.forEach(item => {
-        //   if (item.id == currentFile.length+1) newIndex = item.id+1;
-        //   // console.log('new', newIndex)
-        // })
-        // console.log('new', newIndex)
-        
-
         
         const objectToSave = Object.assign({}, newObject, {
           id: self.setItemIndex(currentFile)
