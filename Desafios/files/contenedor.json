@@ -1,0 +1,23 @@
+[
+  {
+    "title": 1984,
+    "author": "George Orwell",
+    "year": 1949,
+    "thumbnail": "https://www.planetadelibros.com.uy/usuaris/libros/fotos/48/m_libros/portada_1984_george-orwell_202103221202.jpg",
+    "id": 1
+  },
+  {
+    "title": "Origen",
+    "author": "Dan Brown",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_901094-MLU46249032847_062021-O.jpg",
+    "year": 2017,
+    "id": 2
+  },
+  {
+    "title": "Kafka on the shore",
+    "author": "Haruki Murakami",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_751170-MLU42496456855_072020-O.jpg",
+    "year": 2002,
+    "id": 3
+  }
+]
