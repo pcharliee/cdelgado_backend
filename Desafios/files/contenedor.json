@@ -2,22 +2,29 @@
   {
     "title": 1984,
     "author": "George Orwell",
-    "year": 1949,
     "thumbnail": "https://www.planetadelibros.com.uy/usuaris/libros/fotos/48/m_libros/portada_1984_george-orwell_202103221202.jpg",
+    "price": 1000,
     "id": 1
   },
   {
     "title": "Origen",
     "author": "Dan Brown",
-    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_901094-MLU46249032847_062021-O.jpg",
-    "year": 2017,
+    "thumbnail": "https://www.bookshop.com.uy/media/catalog/product/cache/1/thumbnail/400x/17f82f742ffe127f42dca9de82fb58b1/f/o/fotonoticia_20170627165346_1920.jpg",
+    "price": "1600",
     "id": 2
   },
   {
-    "title": "Kafka on the shore",
-    "author": "Haruki Murakami",
-    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_751170-MLU42496456855_072020-O.jpg",
-    "year": 2002,
+    "title": "Harry Potter and The Prisioner of Azkaban",
+    "author": "J.K Rowling",
+    "thumbnail": "http://prodimage.images-bn.com/pimages/9780439136365_p0_v1_s1200x630.jpg",
+    "price": "1500",
     "id": 3
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "thumbnail": "https://ep00.epimg.net/elpais/imagenes/2013/05/14/fotorrelato/1368546567_791563_1368547642_album_normal.jpg",
+    "price": "1540",
+    "id": 4
   }
 ]
