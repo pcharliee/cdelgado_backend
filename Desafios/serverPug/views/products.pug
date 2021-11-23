@@ -1,0 +1,20 @@
+- let exist = !!products.length
+html
+  head
+    title=title
+    link(rel="stylesheet" href="/public/styles.css")
+  body
+    h1="Products"
+    if exist
+      div(class='products-list')
+        each book in products
+          div(class='card-container')
+            div(class='card-body')
+              h4=book.title
+              p #{book.author} - 
+                span=book.price
+              img(src=book.thumbnail alt='Book cover')
+      button(id='add-book')='Add book'
+    else
+      p="Empty file"
+    script(type='text/javascript' src='/public/index.js')

@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
+import Container from '../classes/Container.js'
 const router = express.Router();
-const Container = require('../classes/Container');
 const Products = new Container();
 
 router.get('/', function (req, res) {
@@ -43,4 +43,4 @@ router.delete('/:id', async function (req, res) {
   });
 });
 
-module.exports = router;
+export default router;

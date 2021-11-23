@@ -1,13 +1,13 @@
-const express = require('express');
+import express from 'express';
+import cors from 'cors'
 const app = express();
-const cors = require('cors')
-const productsRouter = require('./routes/products');
+import router from './routes/products.js'
 const PORT = process.env.PORT || 9090;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api/products', productsRouter);
+app.use('/api/products', router);
 
 const server = app.listen(PORT, function () {
   console.log(`Listing to port ${PORT}`);
