@@ -1,6 +1,5 @@
-const fs = require('fs');
-
-class Container {
+import fs from 'fs';
+export default class Container {
   constructor(file) {
     this.file = file;
   };
@@ -14,7 +13,6 @@ class Container {
   };
 
   async saveProduct(newObject) {
-    console.log('que tenemos aca', newObject)
     let self = this;
     try {
       let data = await fs.promises.readFile('./files/contenedor.json', 'utf-8')
@@ -59,6 +57,7 @@ class Container {
       let products = JSON.parse(data);
       return { status: 'Success', payload: products };
     } catch (error) {
+      console.log('error', error)
       return { status: 'error', payload: 'File is empty'};
     }
   };
@@ -130,5 +129,3 @@ class Container {
       });
   };  
 };
-
-module.exports = Container;
