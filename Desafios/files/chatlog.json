@@ -1,0 +1,22 @@
+[
+  {
+    "email": "system@bookstore.com",
+    "message": "Welcome, how can we help you?",
+    "date": "2021-11-30T03:08:57.365Z"
+  },
+  {
+    "email": "user@mail.com",
+    "message": "Do you have 'Origin' by Dan Brown?",
+    "date": "2021-11-30T03:09:49.484Z"
+  },
+  {
+    "email": "user2@mail.com",
+    "message": "I will pick up my book later on today",
+    "date": "2021-11-30T03:13:16.061Z"
+  },
+  {
+    "email": "user3@mail.com",
+    "message": "You have all the books I need",
+    "date": "2021-12-01T12:15:39.622Z"
+  }
+]

@@ -1,0 +1,72 @@
+* {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.form-container {
+  width: 500px;
+}
+
+.form-container form {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+.table-container {
+  width: 600px;
+}
+
+.table-row {
+  text-align: center;
+}
+
+.table-row td {
+  min-width: 100px;
+}
+
+.table-row:nth-child(even) {
+  background-color: rgb(129, 194, 163);
+  color: #FFFF
+}
+
+.table-row .product-title {
+  padding: 0 0 0 10px;
+  text-align: left;
+}
+
+.table-row img {
+  height: 50px;
+  width: auto;
+}
+
+.messages-container {
+  width: 600px;
+  height: 500px;
+  overflow: auto;
+  background:rgb(240, 239, 227);
+  margin: 0 0 10px 0;
+}
+
+.message p.email-text {
+  font-weight: 700;
+  margin: 8px 0;
+  color: rgb(55, 104, 196)
+}
+
+.message p.email-text > span {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: rgb(122, 85, 29)
+}
+
+.message p:nth-child(2) {
+  font-style: italic;
+  margin: 0 0 5px;
+  color: rgb(44, 143, 41);
+}
+
+.chat-container {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}

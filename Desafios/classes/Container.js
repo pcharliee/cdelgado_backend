@@ -27,7 +27,7 @@ export default class Container {
       products.push(objectToSave);
       try {
         await fs.promises.writeFile('./files/contenedor.json', JSON.stringify(products, null, 2));
-        return { status: 'Success', message: 'Product successfully added'};
+        return { status: 'success', message: 'Product successfully added'};
       } catch (error) {
         return { status: 'error', message: 'Try again later'};
       }
@@ -36,7 +36,7 @@ export default class Container {
         './files/contenedor.json',
         `[${JSON.stringify({ ...newObject, id: 1 }, null, 2)}]`
       );
-      return { status: 'Success', message: 'File and product successfully saved!'};
+      return { status: 'success', message: 'File and product successfully saved!'};
     }
   };
 
@@ -45,7 +45,7 @@ export default class Container {
       let data = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
       const product = JSON.parse(data).find(prod => prod.id == id);
       if (!product) throw new Error();
-      return { status: 'Success', payload: product };
+      return { status: 'success', payload: product };
     } catch (error) {
       return { status: 'error', message: `No product with ID: ${id}` };
     };
@@ -55,7 +55,7 @@ export default class Container {
     try {
       let data = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
       let products = JSON.parse(data);
-      return { status: 'Success', payload: products };
+      return { status: 'success', payload: products };
     } catch (error) {
       console.log('error', error)
       return { status: 'error', payload: 'File is empty'};

@@ -1,5 +1,7 @@
 import express from 'express';
-import Container from '../classes/Container.js'
+import Container from '../classes/Container.js';
+import upload from '../services/upload.js';
+import { io } from '../app.js';
 const router = express.Router();
 const Products = new Container();
 
@@ -18,10 +20,17 @@ router.get('/:id', async function (req, res) {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', upload.single('thumbnail'), (req, res) => {
+  let file = req.file;
   let newObject = req.body;
-  console.log('newObject', newObject)
+  newObject.thumbnail = `${req.protocol}://${req.headers.host}/images/${file.filename}`;
   Products.saveProduct(newObject).then(result => {
+    if (result.status == 'success') {
+      Products.getAll()
+        .then(function (products) {
+          io.emit('showBookCatalog', products)
+        });
+    };
     res.send(result);
   });
 });
