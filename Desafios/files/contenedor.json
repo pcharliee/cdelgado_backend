@@ -26,5 +26,19 @@
     "thumbnail": "https://ep00.epimg.net/elpais/imagenes/2013/05/14/fotorrelato/1368546567_791563_1368547642_album_normal.jpg",
     "price": "1540",
     "id": 4
+  },
+  {
+    "title": "Secretos Imperfectos",
+    "author": "Hjort & Rosenfeldt",
+    "price": "2310",
+    "thumbnail": "http://localhost:9090/images/1638241974986sbergman1.jpeg",
+    "id": 5
+  },
+  {
+    "title": "Crimenes Duplicados",
+    "author": "Hjort & Rosenfeldt",
+    "price": "1980",
+    "thumbnail": "http://localhost:9090/images/1638360910003sbergman4.jpeg",
+    "id": 6
   }
 ]
