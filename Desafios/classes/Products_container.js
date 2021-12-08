@@ -1,5 +1,5 @@
 import fs from 'fs';
-export default class Container {
+export default class ProductsContainer {
   constructor(file) {
     this.file = file;
   };
@@ -63,8 +63,6 @@ export default class Container {
   };
 
   async deleteById(id) {
-    let self = this;
-    console.log('id', id)
     try {
       let data = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
       if (!data) return { status: 'error', message: 'File is empty' };
@@ -100,7 +98,12 @@ export default class Container {
 
       const updatedProducts = products.map(prod => {
         if (prod.id == id)
-          prod = Object.assign({ ...updatedProduct, id: prod.id });
+          prod = Object.assign({
+            ...updatedProduct,
+            id: prod.id,
+            created_at: prod.created_at,
+            updated_at: new Date().toISOString()
+          });
         return prod;
       });
 

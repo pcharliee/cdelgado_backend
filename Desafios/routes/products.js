@@ -1,7 +1,8 @@
 import express from 'express';
-import Container from '../classes/Container.js';
+import Container from '../classes/Products_container.js';
 import upload from '../services/upload.js';
 import { io } from '../app.js';
+import { authMiddleware } from '../utils.js';
 const router = express.Router();
 const Products = new Container();
 
@@ -12,7 +13,7 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/:id', async function (req, res) {
+router.get('/:id', authMiddleware, async function (req, res) {
   let productId = parseInt(req.params.id);
   Products.getById(productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
@@ -20,10 +21,12 @@ router.get('/:id', async function (req, res) {
   });
 });
 
-router.post('/', upload.single('thumbnail'), (req, res) => {
+router.post('/', [ upload.single('thumbnail'), authMiddleware ], (req, res) => {
   let file = req.file;
   let newObject = req.body;
-  newObject.thumbnail = `${req.protocol}://${req.headers.host}/images/${file.filename}`;
+  newObject.created_at = new Date().toISOString();
+  newObject.thumbnail 
+    = `${req.protocol}://${req.headers.host}/images/${file.filename}` || req.body.thumbnail
   Products.saveProduct(newObject).then(result => {
     if (result.status == 'success') {
       Products.getAll()
@@ -35,16 +38,17 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
   });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', authMiddleware, (req, res) => {
   let productId = parseInt(req.params.id);
   let updatedObject = req.body
+  updatedObject.updated_at = new Date().toISOString();
   Products.updateById(productId, updatedObject).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result);
   });
 });
 
-router.delete('/:id', async function (req, res) {
+router.delete('/:id', authMiddleware, async function (req, res) {
   let productId = parseInt(req.params.id);
   Products.deleteById(productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
