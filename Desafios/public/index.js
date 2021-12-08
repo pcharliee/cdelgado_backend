@@ -1,6 +1,5 @@
-let email;
-let message;
 let sendButton = document.getElementById('send-message');
+
 sendButton.addEventListener('click', sendMessage);
 
 function sendMessage(e) {
@@ -14,7 +13,7 @@ function sendMessage(e) {
     email: email,
     message: message,
   }
-  fetch('http://localhost:9090/api/chat', {
+  fetch('/api/chat', {
     method: 'POST',
     body: JSON.stringify(obj),
     headers: {
@@ -22,6 +21,7 @@ function sendMessage(e) {
     }
   })
   .then(function (response) {
+    console.log("response chat", response)
     return response.json();
   });
 };
@@ -30,7 +30,7 @@ document.addEventListener('submit', function (evt) {
   evt.preventDefault();
   let form = document.getElementById('bookForm')
   let data = new FormData(form);
-  fetch('http://localhost:9090/api/products', {
+  fetch('/api/products', {
     method: 'POST',
     body: data
   })
