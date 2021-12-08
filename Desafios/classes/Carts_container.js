@@ -42,26 +42,26 @@ export default class CartsContainer {
 
       // Products
       let productsData = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
+      if (!productsData) return { status: 'error', message: 'There are no items in Products file'}
       let products = JSON.parse(productsData);
 
+      let productToAdd = products.find(function (product) {
+        delete product.stock;
+        product.quantity = 1;
+        return product.id == productId
+      })
+
       if (!cartId && !productId) {
-        console.log('entra ')
         newCart = {
           id: this.setItemIndex(existingCarts),
           created_at: new Date().toISOString(),
-          products: []  
+          products: [] 
         }
       } else {
-        let productToAdd = products.find(function (product) {
-          delete product.stock;
-          product.quantity = 1;
-          return product.id == productId
-        })
-        
         newCart = {
           id: cartId,
           created_at: new Date().toISOString(),
-          products: [ productToAdd ]  
+          products: productToAdd ? [ productToAdd ] : []
         }
       }
 
@@ -185,7 +185,10 @@ export default class CartsContainer {
         return cart.id == cartId
       });
       
-      if (!selectedCart) return { status: 'error', message: 'Cart doesnt exist'};
+      if (!selectedCart)
+        return { status: 'error', message: 'Cart doesnt exist' };
+      if (!selectedCart.products.length)
+        return { status: 'error', message: 'Unable to delete. Cart is empty' };
       
       const filteredProducts = selectedCart.products.filter(function (product) {
         return product.id != productId
