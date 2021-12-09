@@ -13,11 +13,11 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/:id', authMiddleware, async function (req, res) {
+router.get('/:id', async function (req, res) {
   let productId = parseInt(req.params.id);
   Products.getById(productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result);
+    else res.status(200).send(result.payload);
   });
 });
 
@@ -55,5 +55,15 @@ router.delete('/:id', authMiddleware, async function (req, res) {
     else res.status(200).send(result);
   });
 });
+
+router.get('/*', function (req, res) {
+  let errorObj = {
+    error: -2,
+    route: req.url,
+    method: req.method,
+    message: 'Not implemented'
+  }
+  res.status(404).send(errorObj)
+})
 
 export default router;
