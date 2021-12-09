@@ -46,4 +46,14 @@ cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
   });
 });
 
+cartsRouter.get('/*', function (req, res) {
+  let errorObj = {
+    error: -2,
+    route: req.url,
+    method: req.method,
+    message: 'Not implemented'
+  }
+  res.status(404).send(errorObj)
+})
+
 export default cartsRouter;
