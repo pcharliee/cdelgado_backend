@@ -9,6 +9,7 @@
         "thumbnail": "https://www.bookshop.com.uy/media/catalog/product/cache/1/thumbnail/400x/17f82f742ffe127f42dca9de82fb58b1/f/o/fotonoticia_20170627165346_1920.jpg",
         "price": "1600",
         "id": 2,
+        "code": "F-0.9549193096052018",
         "created_at": "2021-12-06T23:43:58.906Z",
         "quantity": 6
       }
@@ -40,6 +41,7 @@
         "thumbnail": "https://www.bookshop.com.uy/media/catalog/product/cache/1/thumbnail/400x/17f82f742ffe127f42dca9de82fb58b1/f/o/fotonoticia_20170627165346_1920.jpg",
         "price": "1600",
         "id": 2,
+        "code": "F-0.9549193096052018",
         "created_at": "2021-12-06T23:43:58.906Z",
         "quantity": 3
       }

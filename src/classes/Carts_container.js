@@ -35,13 +35,13 @@ export default class CartsContainer {
   async createCart(cartId, productId) {
     try {
       let newCart;
-      let data = await fs.promises.readFile('./files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
       if (!data) throw new Error();
 
       let existingCarts = JSON.parse(data);
 
       // Products
-      let productsData = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
+      let productsData = await fs.promises.readFile('./src/files/contenedor.json', 'utf-8');
       if (!productsData) return { status: 'error', message: 'There are no items in Products file'}
       let products = JSON.parse(productsData);
 
@@ -68,7 +68,7 @@ export default class CartsContainer {
       existingCarts.push(newCart);
 
       try {
-        await fs.promises.writeFile('./files/carts.json', JSON.stringify(existingCarts, null, 2));
+        await fs.promises.writeFile('./src/files/carts.json', JSON.stringify(existingCarts, null, 2));
         return { status: 'success', message: newCart.id.toString() }
       } catch (error) {
         console.log('Unexpected error ocurred', error)
@@ -82,7 +82,7 @@ export default class CartsContainer {
           created_at: new Date().toISOString(),
           products: []
         }
-        await fs.promises.writeFile('./files/carts.json', `[${JSON.stringify(newCart, null, 2)}]`);
+        await fs.promises.writeFile('./src/files/carts.json', `[${JSON.stringify(newCart, null, 2)}]`);
         return { status: 'success', message: `Adding new cart to empty file`};
       } catch (error) {
         return { status: 'error', message: 'Something went wrong while creating the cart'};
@@ -93,7 +93,7 @@ export default class CartsContainer {
   async saveToCart(cartId, productId) {
     try {
       // Carts
-      let data = await fs.promises.readFile('./files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
       if (!data) throw new Error('File was empty');
       let existingCarts = JSON.parse(data);
 
@@ -104,7 +104,7 @@ export default class CartsContainer {
       if (!selectedCart) return this.createCart(cartId, productId);
 
       // Products
-      let productsData = await fs.promises.readFile('./files/contenedor.json', 'utf-8');
+      let productsData = await fs.promises.readFile('./src/files/contenedor.json', 'utf-8');
       let products = JSON.parse(productsData);
       let productToAdd = products.find(function (product) {
         delete product.stock;
@@ -127,7 +127,7 @@ export default class CartsContainer {
       });
 
       try {
-        await fs.promises.writeFile('./files/carts.json', JSON.stringify(updatedCarts, null, 2));
+        await fs.promises.writeFile('./src/files/carts.json', JSON.stringify(updatedCarts, null, 2));
         return { status: 'success', message: `Item added to cart ${cartId}`}
 
       } catch (error) {
@@ -146,7 +146,7 @@ export default class CartsContainer {
 
   async deleteCart(cartId) {
     try {
-      let data = await fs.promises.readFile('./files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
       if (!data) throw new Error('File was empty');
       let existingCarts = JSON.parse(data);
       
@@ -162,7 +162,7 @@ export default class CartsContainer {
 
       try {
         await fs.promises.writeFile(
-          './files/carts.json',
+          './src/files/carts.json',
           JSON.stringify(filteredCarts, null, 2)
         );
         return { status: 'success', message: `Cart ${cartId} removed` };
@@ -177,7 +177,7 @@ export default class CartsContainer {
 
   async deleteCartItem(cartId, productId) {
     try {
-      let data = await fs.promises.readFile('./files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
       if (!data) throw new Error('File was empty');
       let existingCarts = JSON.parse(data);
       
@@ -205,7 +205,7 @@ export default class CartsContainer {
 
       try {
         await fs.promises.writeFile(
-          './files/carts.json',
+          './src/files/carts.json',
           JSON.stringify(updatedCarts, null, 2)
         );
         return { status: 'success', message: `Product removed from cart ${cartId}` };
@@ -220,7 +220,7 @@ export default class CartsContainer {
 
   async getAll(id) {
     try {
-      let data = await fs.promises.readFile('./files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
       let carts = JSON.parse(data).filter(carts => carts.id == id);
       if (!carts) throw new Error();
       return { status: 'success', payload: carts };

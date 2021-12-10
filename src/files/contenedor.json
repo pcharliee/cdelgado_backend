@@ -5,6 +5,7 @@
     "thumbnail": "https://www.bookshop.com.uy/media/catalog/product/cache/1/thumbnail/400x/17f82f742ffe127f42dca9de82fb58b1/f/o/fotonoticia_20170627165346_1920.jpg",
     "price": "1600",
     "id": 2,
+    "code": "F-0.95836640676032347",
     "created_at": "2021-12-06T23:43:58.906Z",
     "stock": 3
   },
@@ -14,6 +15,7 @@
     "thumbnail": "https://ep00.epimg.net/elpais/imagenes/2013/05/14/fotorrelato/1368546567_791563_1368547642_album_normal.jpg",
     "price": "1540",
     "id": 4,
+    "code": "F-0.49852800676053347",
     "created_at": "2021-12-06T23:43:58.906Z",
     "stock": 3
   },
@@ -23,8 +25,10 @@
     "price": "2310",
     "thumbnail": "http://localhost:9090/images/1638241974986sbergman1.jpeg",
     "id": 5,
+    "code": "F-0.49816640676037727",
     "created_at": "2021-12-06T23:43:58.906Z",
-    "stock": 3
+    "stock": 4,
+    "updated_at": "2021-12-10T23:36:15.545Z"
   },
   {
     "title": "Crimenes Duplicados",
@@ -32,27 +36,29 @@
     "price": "1980",
     "thumbnail": "http://localhost:9090/images/1638360910003sbergman4.jpeg",
     "id": 6,
+    "code": "F-0.40006640676000076",
     "created_at": "2021-12-06T23:43:58.906Z",
     "stock": 3
   },
   {
-    "title": "Harry Potter and The Prisioner of Azkaban",
-    "author": "J.K Rowling",
-    "thumbnail": "http://prodimage.images-bn.com/pimages/9780439136365_p0_v1_s1200x630.jpg",
-    "price": "1500",
-    "updated_at": "2021-12-06T23:49:35.758Z",
-    "id": 8,
+    "title": "Book122",
+    "price": "2763",
+    "stock": 12,
     "created_at": "2021-12-06T23:43:58.906Z",
-    "stock": 3
+    "thumbnail": "http://localhost:9090/images/1639179065257memory.jpeg",
+    "id": 8,
+    "code": "F-0.35509074684662156",
+    "updated_at": "2021-12-10T23:31:11.967Z"
   },
   {
     "title": "Book1",
     "price": 2763,
     "author": "Yo",
-    "stock": 3,
+    "stock": 13,
+    "code": "F-0.32635491444253373",
     "created_at": "2021-12-08T02:12:48.962Z",
     "thumbnail": "http://localhost:9090/images/1638929568955memory.jpeg",
-    "updated_at": "2021-12-08T03:53:40.550Z",
+    "updated_at": "2021-12-10T23:28:05.053Z",
     "id": 7
   }
 ]
