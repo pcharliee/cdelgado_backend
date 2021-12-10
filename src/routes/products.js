@@ -64,6 +64,6 @@ router.get('/*', function (req, res) {
     message: 'Not implemented'
   }
   res.status(404).send(errorObj)
-})
+});
 
 export default router;
