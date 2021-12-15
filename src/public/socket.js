@@ -19,6 +19,9 @@ socket.on('showBookCatalog', function (data) {
 
 socket.on('chat', function (data) {
   let messages = data.payload;
+  messages.forEach(function (message) {
+    message.date = new Date(message.date).toISOString();
+  })
   fetch('./templates/chat.handlebars')
     .then(function (text) {
       return text.text();

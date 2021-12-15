@@ -1,20 +1,22 @@
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import __dirname from './utils.js';
 import router from './routes/products.js';
 import chatRouter from './routes/chat.js';
 import cartsRouter from './routes/cart.js';
-import chatContainer from './classes/chat_container.js';
-import CartsContainer from './classes/Carts_container.js';
-import Container from './classes/Products_container.js';
+// import chatContainer from './classes/chat_container.js';
+// import CartsContainer from './classes/Carts_container.js';
+// import Container from './classes/Products_container.js';
+import Chats from './services/Chat.js';
+import Products from './services/Products.js';
 import { authMiddleware } from './utils.js';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
 
 const app = express();
 const PORT = process.env.PORT || 9090;
-const Chats = new chatContainer();
-const Products = new Container();
+const chatsServices = new Chats();
+const productsServices = new Products();
 let isAdmin = false;
 
 app.use(express.json());
@@ -51,8 +53,8 @@ server.on('error', function (error) {
 
 io.on('connection', async function (socket) {
   console.log(`${socket.id} connected`);
-  let products = await Products.getAll();
-  let chatLog = await Chats.getAll();
+  let products = await productsServices.getProducts();
+  let chatLog = await chatsServices.getAll();
   socket.emit('showBookCatalog', products);
   socket.emit('chat', chatLog);
 })

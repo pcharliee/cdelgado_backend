@@ -1,19 +1,17 @@
 import express from 'express';
-import chatContainer from '../classes/chat_container.js';
+import Chats from '../services/Chat.js';
 import { io } from '../app.js';
 const chatRouter = express.Router();
-const Chats = new chatContainer();
+const chatsServices = new Chats();
 
 chatRouter.post('/', function (req, res) {
-  let date = new Date()
   let message = req.body
-  message.date = date.toISOString();
-  Chats.saveMessage(message)
+  chatsServices.saveMessage(message)
     .then(function (result) {
       if (result.status == 'success')
-      Chats.getAll()
+      chatsServices.getAll()
         .then(function (messages) {
-          io.emit('showMessages', messages);
+          io.emit('chat', messages);
         })
       res.send(result)
     })

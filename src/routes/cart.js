@@ -1,28 +1,37 @@
 import express from 'express';
-import CartsContainer from '../classes/Carts_container.js';
+// import CartsContainer from '../classes/Carts_container.js';
+import Carts from '../services/Cart.js'
 const cartsRouter = express.Router();
-const Carts = new CartsContainer();
+const cartsService = new Carts();
+// const Carts = new CartsContainer();
 
 cartsRouter.post('/', function (req, res) {
-  Carts.createCart().then(function (result) {
+  cartsService.createCart().then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.message);
+    else res.status(200).send(result.payload);
   })
 })
 
-cartsRouter.post('/:id/products', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  let newItemId = req.body.id;
-  Carts.saveToCart(cartId, newItemId).then(function (result) {
-    console.log('result aca', result)
+// TODO
+// cartsRouter.post('/:id/products', function (req, res) {
+//   let cartId = parseInt(req.params.id);
+//   let newItemId = req.body.id;
+//   cartsService.addToCart(cartId, newItemId).then(function (result) {
+//     if (result.status == 'error') res.status(400).send(result.message);
+//     else res.status(200).send(result.payload);
+//   });
+// });
+
+cartsRouter.get('/', function (req, res) {
+  cartsService.getCarts().then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.pay);
-  });
-});
+    else res.status(200).send(result.payload);
+  })
+})
 
 cartsRouter.get('/:id/products', function (req, res) {
   let cartId = parseInt(req.params.id);
-  Carts.getAll(cartId).then(function (result) {
+  cartsService.getCartsById(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.payload);
   })
@@ -30,21 +39,22 @@ cartsRouter.get('/:id/products', function (req, res) {
 
 cartsRouter.delete('/:id', function (req, res) {
   let cartId = parseInt(req.params.id);
-  Carts.deleteCart(cartId).then(function (result) {
+  cartsService.deleteCart(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.message);
   })
 });
 
-cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  let productId = parseInt(req.params.id_prod);
+// TODO
+// cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
+//   let cartId = parseInt(req.params.id);
+//   let productId = parseInt(req.params.id_prod);
 
-  Carts.deleteCartItem(cartId, productId).then(function (result) {
-    if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.message);
-  });
-});
+//   Carts.deleteCartItem(cartId, productId).then(function (result) {
+//     if (result.status == 'error') res.status(400).send(result.message);
+//     else res.status(200).send(result.message);
+//   });
+// });
 
 cartsRouter.get('/*', function (req, res) {
   let errorObj = {
@@ -54,6 +64,6 @@ cartsRouter.get('/*', function (req, res) {
     message: 'Not implemented'
   }
   res.status(404).send(errorObj)
-})
+});
 
 export default cartsRouter;
