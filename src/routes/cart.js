@@ -1,60 +1,55 @@
 import express from 'express';
-// import CartsContainer from '../classes/Carts_container.js';
-import Carts from '../services/Cart.js'
+import { carts } from '../daos/index.js'
 const cartsRouter = express.Router();
-const cartsService = new Carts();
-// const Carts = new CartsContainer();
 
 cartsRouter.post('/', function (req, res) {
-  cartsService.createCart().then(function (result) {
+  carts.saveOne().then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.payload);
+    else res.status(200).send(result);
   })
 })
 
-// TODO
-// cartsRouter.post('/:id/products', function (req, res) {
-//   let cartId = parseInt(req.params.id);
-//   let newItemId = req.body.id;
-//   cartsService.addToCart(cartId, newItemId).then(function (result) {
-//     if (result.status == 'error') res.status(400).send(result.message);
-//     else res.status(200).send(result.payload);
-//   });
-// });
+cartsRouter.post('/:id/products', function (req, res) {
+  let cartId = req.params.id;
+  let newItemId = req.body.id;
+  carts.saveToCart(cartId, newItemId).then(function (result) {
+    if (result.status == 'error') res.status(400).send(result.message);
+    else res.status(200).send(result);
+  });
+});
 
 cartsRouter.get('/', function (req, res) {
-  cartsService.getCarts().then(function (result) {
+  carts.getAll().then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.payload);
   })
 })
 
 cartsRouter.get('/:id/products', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  cartsService.getCartsById(cartId).then(function (result) {
+  let cartId = req.params.id;
+  carts.getById(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.payload);
   })
 })
 
 cartsRouter.delete('/:id', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  cartsService.deleteCart(cartId).then(function (result) {
+  let cartId = req.params.id;
+  carts.deleteById(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.message);
   })
 });
 
-// TODO
-// cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
-//   let cartId = parseInt(req.params.id);
-//   let productId = parseInt(req.params.id_prod);
+cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
+  let cartId = req.params.id;
+  let productId = req.params.id_prod;
 
-//   Carts.deleteCartItem(cartId, productId).then(function (result) {
-//     if (result.status == 'error') res.status(400).send(result.message);
-//     else res.status(200).send(result.message);
-//   });
-// });
+  carts.deleteCartItem(cartId, productId).then(function (result) {
+    if (result.status == 'error') res.status(400).send(result.message);
+    else res.status(200).send(result);
+  });
+});
 
 cartsRouter.get('/*', function (req, res) {
   let errorObj = {

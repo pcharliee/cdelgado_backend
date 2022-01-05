@@ -10,7 +10,7 @@ export default class Products {
             table.string('title').notNullable();
             table.string('author').notNullable();
             table.float('price').notNullable();
-            table.string('code').notNullable().defaultTo('F-999')
+            table.string('code').notNullable().defaultTo('F-999');
             table.integer('stock').notNullable();
             table.string('thumbnail').notNullable();
             table.timestamps(true, true);
@@ -38,9 +38,9 @@ export default class Products {
                             .where('id', id)
                             .first();
       if (product) return { status: 'success', payload: product };
-      else return { status: 'error', message: 'Not found' } 
+      else return { status: 'error', message: 'Not found' };
     } catch (error) {
-      return { status: 'error', message: error.message }
+      return { status: 'error', message: error.message };
     }
   }
 
@@ -52,13 +52,13 @@ export default class Products {
                           .where('title', product.title)
                           .first()
       
-      if (exists) return { status: 'error', message: 'Already exists!'}
+      if (exists) return { status: 'error', message: 'Already exists!'};
       
       let newProduct = await database.table('products').insert(product);
       return { status: 'success', payload: newProduct };
                             
     } catch (error) {
-      return { status: 'error', message: error.message }
+      return { status: 'error', message: error.message };
     }
   }
 
@@ -70,7 +70,7 @@ export default class Products {
       else
         return { status: 'error', message: 'No updates. No product found' };
     } catch (error) {
-      return { status: error, message: error }
+      return { status: error, message: error };
     }
   }
 
@@ -82,7 +82,7 @@ export default class Products {
       else
         return { status: 'error', message: 'No product found' };
     } catch (error) {
-      return { status: 'error', message: error.message }
+      return { status: 'error', message: error.message };
     }
   }
 };
