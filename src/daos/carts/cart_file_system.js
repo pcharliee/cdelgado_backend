@@ -1,19 +1,19 @@
 import fs from 'fs';
-export default class CartsContainer {
-  
-  setItemIndex(currentFile) {
-    let newIndex = currentFile.length+1;
-    currentFile.forEach(item => {
-      if (item.id == currentFile.length+1) newIndex = item.id+1;
-    });
-    return newIndex;
+import __dirname from '../../utils.js';
+import FileContainer from '../../containers/File_container.js';
+const fileName = 'carts.json';
+const filePath = `${__dirname}/files/${fileName}`;
+
+export default class CartFileSystem extends FileContainer {
+  constructor() {
+    super(fileName);
   };
 
-  /* 
+   /* 
     Functionality that removes duplicated objects from an array.
     The second parameter is a function that indicates the key it
     will be used for checking for duplicates.
-  */
+   */
   removeDuplicated(cart, key) {
     return [...new Map(
       cart.products.map(c => [key(c), c])
@@ -35,14 +35,14 @@ export default class CartsContainer {
   async createCart(cartId, productId) {
     try {
       let newCart;
-      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile(filePath, 'utf-8');
       if (!data) throw new Error();
 
       let existingCarts = JSON.parse(data);
 
       // Products
-      let productsData = await fs.promises.readFile('./src/files/contenedor.json', 'utf-8');
-      if (!productsData) return { status: 'error', message: 'There are no items in Products file'}
+      let productsData = await fs.promises.readFile(`${__dirname}/files/products.json`, 'utf-8');
+      if (!productsData) return { status: 'error', message: 'There are no items in Products file' };
       let products = JSON.parse(productsData);
 
       let productToAdd = products.find(function (product) {
@@ -68,10 +68,10 @@ export default class CartsContainer {
       existingCarts.push(newCart);
 
       try {
-        await fs.promises.writeFile('./src/files/carts.json', JSON.stringify(existingCarts, null, 2));
-        return { status: 'success', message: newCart.id.toString() }
+        await fs.promises.writeFile(filePath, JSON.stringify(existingCarts, null, 2));
+        return { status: 'success', message: newCart.id.toString() };
       } catch (error) {
-        console.log('Unexpected error ocurred', error)
+        return { status: 'error', message: 'Unexpected error ocurred', error };
       }
 
     } catch (error) {
@@ -82,10 +82,10 @@ export default class CartsContainer {
           created_at: new Date().toISOString(),
           products: []
         }
-        await fs.promises.writeFile('./src/files/carts.json', `[${JSON.stringify(newCart, null, 2)}]`);
-        return { status: 'success', message: `Adding new cart to empty file`};
+        await fs.promises.writeFile(filePath, `[${JSON.stringify(newCart, null, 2)}]`);
+        return { status: 'success', message: `Adding new cart to empty file` };
       } catch (error) {
-        return { status: 'error', message: 'Something went wrong while creating the cart'};
+        return { status: 'error', message: 'Something went wrong while creating the cart' };
       }
     }
   }
@@ -93,7 +93,7 @@ export default class CartsContainer {
   async saveToCart(cartId, productId) {
     try {
       // Carts
-      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile(filePath, 'utf-8');
       if (!data) throw new Error('File was empty');
       let existingCarts = JSON.parse(data);
 
@@ -104,7 +104,7 @@ export default class CartsContainer {
       if (!selectedCart) return this.createCart(cartId, productId);
 
       // Products
-      let productsData = await fs.promises.readFile('./src/files/contenedor.json', 'utf-8');
+      let productsData = await fs.promises.readFile(`${__dirname}/files/products.json`, 'utf-8');
       let products = JSON.parse(productsData);
       let productToAdd = products.find(function (product) {
         delete product.stock;
@@ -118,7 +118,9 @@ export default class CartsContainer {
         .products
         .push(this.productValidation(selectedCart.products, productToAdd));
 
-      selectedCart.products = this.removeDuplicated(selectedCart, function (_) { return _.id;})
+      selectedCart.products = this.removeDuplicated(selectedCart, function (_) {
+        return _.id;
+      })
       
       const updatedCarts = existingCarts.map(function (cart) {
         if (cart.id == cartId)
@@ -127,12 +129,11 @@ export default class CartsContainer {
       });
 
       try {
-        await fs.promises.writeFile('./src/files/carts.json', JSON.stringify(updatedCarts, null, 2));
-        return { status: 'success', message: `Item added to cart ${cartId}`}
+        await fs.promises.writeFile(filePath, JSON.stringify(updatedCarts, null, 2));
+        return { status: 'success', message: `Item added to cart ${cartId}` };
 
       } catch (error) {
-        console.log('Error del intento de exito', error)
-        return { status: 'error', message: 'Something went wrong when adding item' }
+        return { status: 'error', message: 'Something went wrong when adding item', error };
       }
 
     } catch (error) {
@@ -144,40 +145,9 @@ export default class CartsContainer {
     }
   }
 
-  async deleteCart(cartId) {
-    try {
-      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
-      if (!data) throw new Error('File was empty');
-      let existingCarts = JSON.parse(data);
-      
-      let selectedCart = existingCarts.find(function (cart) {
-        return cart.id == cartId
-      });
-      
-      if (!selectedCart) return { status: 'error', message: 'Cart doesnt exist'};
-      
-      const filteredCarts = existingCarts.filter(function (cart) {
-        return cart.id != cartId
-      });
-
-      try {
-        await fs.promises.writeFile(
-          './src/files/carts.json',
-          JSON.stringify(filteredCarts, null, 2)
-        );
-        return { status: 'success', message: `Cart ${cartId} removed` };
-      } catch (error) {
-        return { status: 'error', message: 'Something went wrong' };
-      }
-    }
-    catch (error) {
-      return { status: 'error', message: `No product with ID: ${id}` };
-    }
-  }
-
   async deleteCartItem(cartId, productId) {
     try {
-      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
+      let data = await fs.promises.readFile(filePath, 'utf-8');
       if (!data) throw new Error('File was empty');
       let existingCarts = JSON.parse(data);
       
@@ -186,7 +156,7 @@ export default class CartsContainer {
       });
       
       if (!selectedCart)
-        return { status: 'error', message: 'Cart doesnt exist' };
+        return { status: 'error', message: 'Cart doesn\'t exist' };
       if (!selectedCart.products.length)
         return { status: 'error', message: 'Unable to delete. Cart is empty' };
       
@@ -204,10 +174,7 @@ export default class CartsContainer {
       });
 
       try {
-        await fs.promises.writeFile(
-          './src/files/carts.json',
-          JSON.stringify(updatedCarts, null, 2)
-        );
+        await fs.promises.writeFile(filePath, JSON.stringify(updatedCarts, null, 2));
         return { status: 'success', message: `Product removed from cart ${cartId}` };
       } catch (error) {
         return { status: 'error', message: 'Something went wrong' };
@@ -217,16 +184,4 @@ export default class CartsContainer {
       return { status: 'error', message: `No product with ID: ${id}` };
     }
   };
-
-  async getAll(id) {
-    try {
-      let data = await fs.promises.readFile('./src/files/carts.json', 'utf-8');
-      let carts = JSON.parse(data).filter(carts => carts.id == id);
-      if (!carts) throw new Error();
-      return { status: 'success', payload: carts };
-    } catch (error) {
-      console.log('error', error)
-      return { status: 'error', message: `No cart for ID: ${id}`};
-    }
-  };
-}
+};

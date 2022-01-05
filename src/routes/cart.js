@@ -1,48 +1,53 @@
 import express from 'express';
-import CartsContainer from '../classes/Carts_container.js';
+import { carts } from '../daos/index.js'
 const cartsRouter = express.Router();
-const Carts = new CartsContainer();
 
 cartsRouter.post('/', function (req, res) {
-  Carts.createCart().then(function (result) {
+  carts.saveOne().then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.message);
+    else res.status(200).send(result);
   })
 })
 
 cartsRouter.post('/:id/products', function (req, res) {
-  let cartId = parseInt(req.params.id);
+  let cartId = req.params.id;
   let newItemId = req.body.id;
-  Carts.saveToCart(cartId, newItemId).then(function (result) {
-    console.log('result aca', result)
+  carts.saveToCart(cartId, newItemId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.pay);
+    else res.status(200).send(result);
   });
 });
 
+cartsRouter.get('/', function (req, res) {
+  carts.getAll().then(function (result) {
+    if (result.status == 'error') res.status(400).send(result.message);
+    else res.status(200).send(result.payload);
+  })
+})
+
 cartsRouter.get('/:id/products', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  Carts.getAll(cartId).then(function (result) {
+  let cartId = req.params.id;
+  carts.getById(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.payload);
   })
 })
 
 cartsRouter.delete('/:id', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  Carts.deleteCart(cartId).then(function (result) {
+  let cartId = req.params.id;
+  carts.deleteById(cartId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
     else res.status(200).send(result.message);
   })
 });
 
 cartsRouter.delete('/:id/products/:id_prod', function (req, res) {
-  let cartId = parseInt(req.params.id);
-  let productId = parseInt(req.params.id_prod);
+  let cartId = req.params.id;
+  let productId = req.params.id_prod;
 
-  Carts.deleteCartItem(cartId, productId).then(function (result) {
+  carts.deleteCartItem(cartId, productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.message);
+    else res.status(200).send(result);
   });
 });
 
@@ -54,6 +59,6 @@ cartsRouter.get('/*', function (req, res) {
     message: 'Not implemented'
   }
   res.status(404).send(errorObj)
-})
+});
 
 export default cartsRouter;

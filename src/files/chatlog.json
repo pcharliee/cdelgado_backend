@@ -22,6 +22,31 @@
   {
     "email": "user3@mail.com",
     "message": "I need more books",
-    "date": "2021-12-06T22:14:48.941Z"
+    "date": "2021-12-03T12:16:39.722Z"
+  },
+  {
+    "email": "user3@mail.com",
+    "message": "Do you have 1984 by George Orwell?",
+    "date": "2021-12-06T11:45:39.541Z"
+  },
+  {
+    "email": "system@bookstore.com",
+    "message": "It just arrived. Are you coming today?",
+    "date": "2021-12-06T11:46:38.212Z"
+  },
+  {
+    "email": "user2@mail.com",
+    "message": "I can't make it today. Will go tomorrow",
+    "date": "2021-12-06T11:51:31.212Z"
+  },
+  {
+    "email": "system@bookstore.com",
+    "message": "No problem, we are open until 22:00",
+    "date": "2021-12-06T11:55:25.111Z"
+  },
+  {
+    "email": "user2@mail.com",
+    "message": "Thank you",
+    "date": "2021-12-06T11:57:34.227Z"
   }
 ]

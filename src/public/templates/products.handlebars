@@ -14,7 +14,7 @@
       <td><img src={{this.thumbnail}} alt="Book cover"></td>
       <td>
         <button id='add-to-cart' value={{this.id}}>Add</button>
-        <button id='remove-item' value={{this.id}}>X</button>
+        <button class='remove-item' onclick="removeProduct(event)" value={{this.id}}>X</button>
       </td>
     </tr>
   {{/each}}

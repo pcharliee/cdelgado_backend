@@ -5,7 +5,6 @@
     "thumbnail": "https://www.bookshop.com.uy/media/catalog/product/cache/1/thumbnail/400x/17f82f742ffe127f42dca9de82fb58b1/f/o/fotonoticia_20170627165346_1920.jpg",
     "price": "1600",
     "id": 2,
-    "code": "F-0.95836640676032347",
     "created_at": "2021-12-06T23:43:58.906Z",
     "stock": 3
   },
@@ -41,14 +40,15 @@
     "stock": 3
   },
   {
-    "title": "Book122",
+    "title": "Secretos Imperfectoseess",
     "price": "2763",
-    "stock": 12,
-    "created_at": "2021-12-06T23:43:58.906Z",
-    "thumbnail": "http://localhost:9090/images/1639179065257memory.jpeg",
+    "stock": 15,
+    "author": "Hjort & Rosenfeldt",
+    "thumbnail": "http://localhost:9090/images/1641254906654sbergman4.jpeg",
     "id": 8,
-    "code": "F-0.35509074684662156",
-    "updated_at": "2021-12-10T23:31:11.967Z"
+    "code": "F-0.2454340243741331",
+    "created_at": "2021-12-06T23:43:58.906Z",
+    "updated_at": "2022-01-04T00:17:55.462Z"
   },
   {
     "title": "Book1",
@@ -60,5 +60,25 @@
     "thumbnail": "http://localhost:9090/images/1638929568955memory.jpeg",
     "updated_at": "2021-12-10T23:28:05.053Z",
     "id": 7
+  },
+  {
+    "title": "Secretos Imperfectoseess",
+    "price": "2763",
+    "stock": 6,
+    "author": "Hjort & Rosenfeldt",
+    "thumbnail": "http://localhost:9090/images/1641254906654sbergman4.jpeg",
+    "id": 8,
+    "code": "F-0.2454340243741331",
+    "updated_at": "2022-01-04T00:17:55.462Z"
+  },
+  {
+    "title": "Secretos Imperfectesoe",
+    "price": "2763",
+    "stock": 4,
+    "author": "Hjort & Rosenfeldt",
+    "thumbnail": "http://localhost:9090/images/1641332990389sbergman4.jpeg",
+    "id": 9,
+    "code": "F-0.8021031138756562",
+    "updated_at": "2022-01-04T21:50:17.637Z"
   }
 ]
