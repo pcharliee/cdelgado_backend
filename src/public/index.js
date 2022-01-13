@@ -7,13 +7,20 @@ function sendMessage(e) {
   e.preventDefault();
   let email = document.getElementById('email').value;
   let message = document.getElementById('message').value;
+  let name = document.getElementById('name').value;
+  let lastName = document.getElementById('last-name').value;
   if (!email || !message) {
-    return alert('Make sure your email and text are written')
-  }
+    return alert('Make sure your email and text are written');
+  };
   let obj = {
-    email: email,
+    sender: {
+      id: email,
+      author: email,
+      name: name,
+      lastName: lastName
+    },
     message: message,
-  }
+  };
   fetch('/api/chat', {
     method: 'POST',
     body: JSON.stringify(obj),

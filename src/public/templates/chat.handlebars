@@ -1,20 +1,30 @@
 <h1>Chat with us</h1>
-<div class="messages-container">
-  {{#if messages}}
-    {{#each messages}}
-    <div class="message">
-      <p class='email-text'>{{this.email}} <span>{{this.date}}</span></p>
-      <p>{{this.message}}</p>
-    </div>
-    {{/each}}
-  {{/if}}
-</div>
-<div class='chat-container'>
-  <label>
-    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-  </label>
-  <label>
-    <textarea name="text" id="message" cols="60" rows="5" required></textarea>
-  </label>
-</div>
-
+<section class="chat-section">
+  <div class='chat-container'>
+    <h3>Centro de mensajes</h3>
+    <p>Compresion: {{compression}}%</p>
+    <label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    </label>
+    <label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    </label>
+    <label>
+      <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+    </label>
+    <label>
+      <textarea name="text" id="message" cols="30" rows="10" required></textarea>
+    </label>
+  </div>
+  <div class="messages-container">
+    {{#if messages}}
+      {{#each messages}}
+      <div class="message">
+        <i class="avatar"></i>
+        <p class='email-text'>{{this.sender.author}} <span>{{this.createdAt}}</span></p>
+        <p>{{this.message}}</p>
+      </div>
+      {{/each}}
+    {{/if}}
+  </div>
+</section>

@@ -2,7 +2,8 @@ import express from 'express';
 import upload from '../services/upload.js';
 import { io } from '../app.js';
 import { authMiddleware } from '../utils.js';
-import { products } from '../daos/index.js'
+import { products } from '../daos/index.js';
+import generateProducts from '../containers/products_generator.js';
 const router = express.Router();
 
 router.get('/', function (req, res) {
@@ -11,6 +12,14 @@ router.get('/', function (req, res) {
     else res.status(200).send(result.payload);
   });
 });
+
+router.get('/products-test', function (req, res) {
+  generateProducts().then(function (result) {
+    if (result.status == 'error')
+      return res.status(400).send(result.message);
+    return res.status(200).send(result.payload);
+  })
+})
 
 router.get('/:id', async function (req, res) {
   let productId = req.params.id;
