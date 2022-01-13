@@ -3,8 +3,15 @@ import config from '../config.js';
 mongoose.connect(config.mongo.baseUrl, config.mongo.options);
 
 export default class MongoContainer {
-  constructor(collection, schema, timestamps) {
-    this.collection = mongoose.model(collection, new mongoose.Schema(schema, timestamps))
+  constructor(collection, schema) {
+    const mongoSchema = new mongoose.Schema(schema, { timestamps: true })
+    mongoSchema.set('toJSON', {
+      transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id
+        delete returnedObject.__v
+      }
+    })
+    this.collection = mongoose.model(collection, mongoSchema)
   }
 
   getAll = async function () {

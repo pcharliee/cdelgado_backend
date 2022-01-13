@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 const collectionRef = 'products';
 
 const ProductsSchema = {

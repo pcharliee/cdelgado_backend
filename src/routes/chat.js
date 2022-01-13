@@ -1,20 +1,22 @@
-// import express from 'express';
-// import Chats from '../services/Chat.js';
-// import { io } from '../app.js';
-// const chatRouter = express.Router();
-// const chatsServices = new Chats();
+import express from 'express';
+import { chats } from '../daos/index.js';
+import { io } from '../app.js';
 
-// chatRouter.post('/', function (req, res) {
-//   let message = req.body
-//   chatsServices.saveMessage(message)
-//     .then(function (result) {
-//       if (result.status == 'success')
-//       chatsServices.getAll()
-//         .then(function (messages) {
-//           io.emit('chat', messages);
-//         })
-//       res.send(result)
-//     })
-// })
+const chatRouter = express.Router();
 
-// export default chatRouter;
+chatRouter.post('/', function (req, res) {
+  let message = req.body;
+  message.sender.avatar = "https://image.pngaaa.com/288/1721288-middle.png"
+  
+  chats.saveOne(message)
+    .then(function (result) {
+      if (result.status == 'success')
+        chats.getChats()
+          .then(function (messages) {
+            io.emit('chat', messages);
+          })
+        res.send(result)
+    });
+});
+
+export default chatRouter;

@@ -18,10 +18,19 @@ socket.on('showBookCatalog', function (data) {
 });
 
 socket.on('chat', function (data) {
-  let messages = data.payload;
-  messages.forEach(function (message) {
-    message.date = new Date(message.date).toISOString();
-  })
+  const users = new normalizr.schema.Entity('users');
+  const comments = new normalizr.schema.Entity('messages', {
+    sender: users
+  });
+  const texts = new normalizr.schema.Entity('posts', {
+    messages: [ comments ]
+  });
+  const denormalizedData = normalizr.denormalize(data.payload.result, texts, data.payload.entities)
+
+  let normalizedLength = JSON.stringify(data.payload).length;
+  let denormalizedLength = JSON.stringify(denormalizedData).length;
+  let compression = 100 - ((denormalizedLength * 100) / normalizedLength).toFixed(0);
+  let messages = denormalizedData.messages;
   fetch('./templates/chat.handlebars')
     .then(function (text) {
       return text.text();
@@ -29,6 +38,7 @@ socket.on('chat', function (data) {
     .then(function (template) {
       const processedTemplate = Handlebars.compile(template);
       const renderObject = {
+        compression: compression,
         messages: messages
       };
       const html = processedTemplate(renderObject);

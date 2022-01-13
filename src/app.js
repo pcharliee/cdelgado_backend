@@ -3,15 +3,16 @@ import cors from 'cors';
 import __dirname from './utils.js';
 import router from './routes/products.js';
 import cartsRouter from './routes/cart.js';
-// import chatRouter from './routes/chat.js';
-// import Chats from './services/Chat.js';
+import generateProducts from './containers/products_generator.js';
+import chatRouter from './routes/chat.js';
 import { authMiddleware } from './utils.js';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
+import { products } from './daos/index.js';
+import { chats } from './daos/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 9090;
-// const chatsServices = new Chats();
 let isAdmin = false;
 
 app.use(express.json());
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
 });
 app.use('/api/products', router);
 app.use('/api/carts', cartsRouter)
-// app.use('/api/chat', chatRouter);
+app.use('/api/chat', chatRouter);
 
 app.use(express.static(__dirname+'/public'));
 
@@ -48,8 +49,9 @@ server.on('error', function (error) {
 
 io.on('connection', async function (socket) {
   console.log(`${socket.id} connected`);
-  let products = await productsServices.getProducts();
-  let chatLog = await chatsServices.getAll();
-  socket.emit('showBookCatalog', products);
+  let savedProducts = await generateProducts();
+  // let savedProducts = await products.getAll();
+  let chatLog = await chats.getChats();
+  socket.emit('showBookCatalog', savedProducts);
   socket.emit('chat', chatLog);
 })

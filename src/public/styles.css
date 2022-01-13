@@ -40,7 +40,8 @@
 }
 
 .messages-container {
-  width: 600px;
+  min-width: 400px;
+  padding: 20px;
   height: 500px;
   overflow: auto;
   background:rgb(240, 239, 227);
@@ -65,8 +66,25 @@
   color: rgb(44, 143, 41);
 }
 
+.chat-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-section h3 { margin: 5px; }
+
 .chat-container {
   display: flex;
   flex-flow: column;
   gap: 5px;
+}
+
+.message i.avatar {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-image: url("https://image.pngaaa.com/288/1721288-middle.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
