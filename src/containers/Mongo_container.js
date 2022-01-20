@@ -19,7 +19,7 @@ export default class MongoContainer {
       let documents = await this.collection.find();
       return { status: 'success', payload: documents };
     } catch (error) {
-      return { status: 'error', message: 'An error occurred: ', error };
+      return { status: 'error', message: `Error while fetching: ${error}` };
     }
   }
 
@@ -32,7 +32,7 @@ export default class MongoContainer {
 
       return { status: 'success', payload: document };
     } catch (error) {
-      return { status: 'error', message: 'An error occurred: ', error };
+      return { status: 'error', message: `Error while fetching: ${error}` };
     }
   }
 
@@ -41,7 +41,7 @@ export default class MongoContainer {
       let result = await this.collection.create(object);
       return { status: 'success', message: 'Successfully added', payload: result };
     } catch (error) {
-      return { status: 'error', message: 'Error while saving: ', error };
+      return { status: 'error', message: `Error while saving: ${error}` };
     }
   }
 
@@ -50,7 +50,7 @@ export default class MongoContainer {
       let document = await this.collection.deleteOne({ _id: id });
       return { status: 'success', message: 'Successfully deleted', payload: document };
     } catch (error) {
-      return { status: 'error', message: 'An error occurred: ', error };
+      return { status: 'error', message: `Error while deleting: ${error}` };
     }
   }
 }
