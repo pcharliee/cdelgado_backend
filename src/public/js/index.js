@@ -1,8 +1,32 @@
+window.onload = isLoggedIn();
 let sendButton = document.getElementById('send-message');
+let logoutButton = document.getElementById('logout-button');
+let removeButton = document.querySelectorAll('.remove-item');
 
-let removeButton = document.querySelectorAll('.remove-item')
+function isLoggedIn() {
+  fetch('/get-session').then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    if (!json.user) location.pathname = '/pages/login.html';
+
+    document.getElementById('logged-user').textContent = `Hello ${json.user.name}`;
+  })
+}
 sendButton.addEventListener('click', sendMessage);
+logoutButton.addEventListener('click', logout);
 
+function logout() {
+  fetch('/logout').then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    alert('See you later');
+    location.reload();
+  });
+};
+
+/* CHAT */
 function sendMessage(e) {
   e.preventDefault();
   let email = document.getElementById('email').value;
@@ -32,34 +56,3 @@ function sendMessage(e) {
     return response.json();
   });
 };
-
-function removeProduct(e) {
-  let id = e.target.value;
-  fetch(`/api/products/${id}`, {
-    method: 'DELETE',
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (json) {
-    console.log(json);
-    location.reload();
-  });
-}
-
-document.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  let form = document.getElementById('bookForm')
-  let data = new FormData(form);
-  fetch('/api/products', {
-    method: 'POST',
-    body: data
-  })
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (json) {
-    console.log(json);
-  });
-});

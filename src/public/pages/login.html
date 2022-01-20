@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../styles.css">
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
     integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
@@ -14,25 +14,19 @@
   <title>Book store</title>
 </head>
 <body>
-  <div id='register-container'>
-    <form id="registerForm" name="registerForm">
-      <h1>Register form</h1>
-      <label for="name">Name</label>
-      <input type="text" name="name" required>
-      <label for="last_name">Last Name</label>
-      <input type="text" name="last_name" required>
-      <label for="email">Email</label>
-      <input type="text" name="email" required>
+  <div id='login-container'>
+    <form id="loginForm" name="loginForm">
+      <h1>Login form</h1>
       <label for="username">Username</label>
       <input type="text" name="username" required>
       <label for="password">Password</label>
       <input type="password" name="password" required>
-      <button type='submit' id='register-btn'>Register</button>
+      <button type='submit' id='login-btn'>Login</button>
     </form>
   </div>
-  <p>Already registered? <a href="pages/login.html">Log in here</a></p>
+  <p>Go back to <a href="/">Register</a></p>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
-  <script type='text/javascript' src='./js/register.js'></script>
+  <script type='text/javascript' src='../js/login.js'></script>
 </body>
 </html>

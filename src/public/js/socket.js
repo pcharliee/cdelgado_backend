@@ -2,7 +2,7 @@ const socket = io();
 
 socket.on('showBookCatalog', function (data) {
   let products = data.payload;
-  fetch('./templates/products.handlebars')
+  fetch('../templates/products.handlebars')
     .then(function (text) {
       return text.text();
     })
@@ -31,7 +31,7 @@ socket.on('chat', function (data) {
   let denormalizedLength = JSON.stringify(denormalizedData).length;
   let compression = 100 - ((denormalizedLength * 100) / normalizedLength).toFixed(0);
   let messages = denormalizedData.messages;
-  fetch('./templates/chat.handlebars')
+  fetch('../templates/chat.handlebars')
     .then(function (text) {
       return text.text();
     })

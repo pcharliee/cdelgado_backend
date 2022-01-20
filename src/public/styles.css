@@ -2,6 +2,12 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+#registerForm  {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 500px;
+}
+
 .form-container {
   width: 500px;
 }
