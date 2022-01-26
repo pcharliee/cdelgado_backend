@@ -1,3 +1,9 @@
+let facebookButton = document.getElementById('facebook-btn');
+
+facebookButton.addEventListener('click', () => {
+  location = 'http://localhost:9090/auth/facebook'
+});
+
 document.addEventListener('submit', function (evt) {
   evt.preventDefault();
   let form = document.getElementById('registerForm');
@@ -16,7 +22,7 @@ document.addEventListener('submit', function (evt) {
   })
   .then(function (response) {
     if (response.status == 200) {
-      location.pathname = '/pages/ecommerce.html';
+      location.repalce = '/ecommerce';
     }
     return response.json();
   })

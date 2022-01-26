@@ -12,13 +12,13 @@ document.addEventListener('submit', function (evt) {
     headers: { 'Content-type': 'application/json' }
   })
   .then(function (response) {
+    console.log('response del login?', response)
     if (response.status == 200) {
-      location.pathname = '/pages/ecommerce.html';
+      location.pathname = '../ecommerce';
     }
     return response.json();
   })
   .then(function (json) {
-    alert(JSON.stringify(json));
     console.log(json);
   })
 });

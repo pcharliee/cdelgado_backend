@@ -13,5 +13,22 @@ export default class UserMongo extends MongoContainer {
     catch (error) {
       return { status: 'error', message: `Something went wrong. Error: ${error}`}
     }
-  }
-}
+  };
+  
+  getByEmailOrCreate = async function (userFb) {
+    try {
+      let user = await this.collection.findOne({ email: userFb.email });
+      if (!user) {
+        try {
+          let user = await this.collection.create(userFb)
+          return user
+        } catch (error) {
+          return { status: 'error', message: `Saving error; ${error}` } 
+        }
+      }
+      return user;
+    } catch (error) {
+      return { status: 'error', message: `Something went wrong. Error: ${error}`}
+    }
+  };
+};
