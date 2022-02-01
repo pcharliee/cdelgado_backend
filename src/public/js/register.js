@@ -1,7 +1,13 @@
 let facebookButton = document.getElementById('facebook-btn');
+let processButton = document.getElementById('process-info');
+
+processButton.addEventListener('click', () => {
+  location.pathname = '/process'
+});
 
 facebookButton.addEventListener('click', () => {
-  location = 'http://localhost:9090/auth/facebook'
+  console.log('location', location)
+  location = `${location.origin}/auth/facebook`
 });
 
 document.addEventListener('submit', function (evt) {
@@ -22,7 +28,7 @@ document.addEventListener('submit', function (evt) {
   })
   .then(function (response) {
     if (response.status == 200) {
-      location.repalce = '/ecommerce';
+      location.replace = '/ecommerce';
     }
     return response.json();
   })
