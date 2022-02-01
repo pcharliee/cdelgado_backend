@@ -12,13 +12,13 @@ import passport from 'passport';
 import initializePassportConfig from './passport/passport_config.js';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
+import { fork } from 'child_process';
 import { products } from './daos/index.js';
 import { chats } from './daos/index.js';
 import { users } from './daos/index.js'
 
 const app = express();
-const PORT = process.env.PORT || 9090;
-
+const PORT = process.argv[2] || 8080;
 /* Session */
 const baseSession = (session({
   store: MongoStore.create({ mongoUrl: config.mongo.sessionsUrl, ttl: 600 }),
@@ -50,14 +50,30 @@ const server = app.listen(PORT, function () {
 export const io = new Server(server);
 io.use(ios(baseSession));
 
-app.post('/register-user', async function (req, res) {
-  let user = req.body;
-  users.saveOne(user).then(function (result) {
-    console.log('result', result)
-    if (result.status == 'error')
-      return res.status(400).send({ message: result.message });
-    res.status(200).send({ message: result });
+app.get('/info', async function (req,res) {
+  let processInfo = {
+    arguments: process.argv.slice(2) == 0 ? 'No arguments' : process.argv.slice(2),
+    platform_name: process.platform,
+    node_version: process.version,
+    memory_usage: JSON.stringify(process.memoryUsage().rss),
+    exec_path: process.execPath,
+    process_id: process.pid,
+    project_folder: process.cwd()
+  };
+  res.send({ info: processInfo });
+})
+
+app.get('/api/random', function (req, res) {
+  const calculation = fork('calculation', [req.query.cant]);
+  calculation.on('message', function (data) {
+    console.log('data', data);
+    res.send({ numbers: data });
   });
+});
+
+app.get('/logout', async function (req, res) {
+  req.logout();
+  res.status(200).send({ message: 'Logged out successfully' });
 });
 
 app.get('/get-session', async function (req, res) {
@@ -76,6 +92,15 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   res.send({ message: 'Logged in' });
 });
 
+app.post('/register-user', async function (req, res) {
+  let user = req.body;
+  users.saveOne(user).then(function (result) {
+    if (result.status == 'error')
+      return res.status(400).send({ message: result.message });
+    res.status(200).send({ message: result });
+  });
+});
+
 app.post('/login', async function (req, res) {
   let { username, password } = req.body;
   const user = await users.getUser(username);
@@ -89,11 +114,6 @@ app.post('/login', async function (req, res) {
     password: user.password
   };
   res.status(200).send({ message: 'ok' });
-});
-
-app.get('/logout', async function (req, res) {
-  req.logout();
-  res.status(200).send({ message: 'Logged out successfully' });
 });
 
 server.on('error', function (error) {
