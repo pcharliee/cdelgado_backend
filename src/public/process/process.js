@@ -11,5 +11,6 @@ fetch('/info').then(function (response) {
       <p>Platform name: ${json.info.platform_name}</p>
       <p>Process ID: ${json.info.process_id}</p>
       <p>Project folder: ${json.info.project_folder}</p>
+      <p>Cores: ${json.info.cores}</p>
     `
   })

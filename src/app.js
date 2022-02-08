@@ -9,6 +9,8 @@ import MongoStore from 'connect-mongo';
 import config from './config.js';
 import ios from 'socket.io-express-session';
 import passport from 'passport';
+import core from 'os';
+import cluster from 'cluster';
 import initializePassportConfig from './passport/passport_config.js';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
@@ -43,12 +45,26 @@ app.engine('handlebars', engine());
 app.set('views', __dirname+'/views');
 app.set('view engine', '.handlebars');
 
-const server = app.listen(PORT, function () {
-  console.log(`Listening to port ${PORT}`);
-});
+if (cluster.isMaster) {
+  console.log(`This is the primary process ${process.pid}`);
+  for (let i = 0; i < core.cpus().length; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', function (worker, code, signal) {
+    console.log(`Worker ${worker.process.pid} exited`);
+    cluster.fork();
+  })
+} else {
+  console.log(`This is a worker process ${process.pid}`);
+  app.listen(PORT, function () { console.log(`Listening on ${PORT}`) })
+}
 
-export const io = new Server(server);
-io.use(ios(baseSession));
+//const server = app.listen(PORT, function () {
+//  console.log(`Listening to port ${PORT}`);
+//});
+//
+export const io = new Server();
+//io.use(ios(baseSession));
 
 app.get('/info', async function (req,res) {
   let processInfo = {
@@ -58,12 +74,14 @@ app.get('/info', async function (req,res) {
     memory_usage: JSON.stringify(process.memoryUsage().rss),
     exec_path: process.execPath,
     process_id: process.pid,
-    project_folder: process.cwd()
+    project_folder: process.cwd(),
+    cores: core.cpus().length,
   };
   res.send({ info: processInfo });
 })
 
 app.get('/api/random', function (req, res) {
+  console.log(`Petition made to worker ${process.pid}`)
   const calculation = fork('calculation', [req.query.cant]);
   calculation.on('message', function (data) {
     console.log('data', data);
@@ -116,14 +134,14 @@ app.post('/login', async function (req, res) {
   res.status(200).send({ message: 'ok' });
 });
 
-server.on('error', function (error) {
-  console.log(`Error: ${error}`);
-});
-
-io.on('connection', async function (socket) {
-  console.log(`${socket.id} connected`);
-  let savedProducts = await products.getAll();
-  let chatLog = await chats.getChats();
-  socket.emit('showBookCatalog', savedProducts);
-  socket.emit('chat', chatLog);
-});
+//server.on('error', function (error) {
+//  console.log(`Error: ${error}`);
+//});
+//
+//io.on('connection', async function (socket) {
+//  console.log(`${socket.id} connected`);
+//  let savedProducts = await products.getAll();
+//  let chatLog = await chats.getChats();
+//  socket.emit('showBookCatalog', savedProducts);
+//  socket.emit('chat', chatLog);
+//});
