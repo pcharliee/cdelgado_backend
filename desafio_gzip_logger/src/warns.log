@@ -1,0 +1,5 @@
+{"level":"warn","message":"Tried to access invalid URL /productoLindo","timestamp":"2022-02-14T16:12:44.258Z"}
+{"level":"warn","message":"Tried to access invalid URL /producto/5","timestamp":"2022-02-14T16:13:03.061Z"}
+{"level":"warn","message":"Tried to access invalid URL /producto/5","timestamp":"2022-02-14T16:13:06.007Z"}
+{"level":"warn","message":"Tried to access invalid URL /compression","timestamp":"2022-02-15T12:16:17.932Z"}
+{"level":"warn","message":"Tried to access invalid URL /favicon.ico","timestamp":"2022-02-15T12:16:18.049Z"}
