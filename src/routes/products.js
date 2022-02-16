@@ -1,7 +1,6 @@
 import express from 'express';
 import upload from '../services/upload.js';
 import { io } from '../app.js';
-import { authMiddleware } from '../utils.js';
 import { products } from '../daos/index.js';
 import generateProducts from '../containers/products_generator.js';
 const router = express.Router();
@@ -29,7 +28,7 @@ router.get('/:id', async function (req, res) {
   });
 });
 
-router.post('/', [ upload.single('thumbnail'), authMiddleware ], (req, res) => {
+router.post('/', [ upload.single('thumbnail') ], (req, res) => {
   let file = req.file;
   let newObject = req.body;
   newObject.thumbnail 
@@ -46,7 +45,7 @@ router.post('/', [ upload.single('thumbnail'), authMiddleware ], (req, res) => {
     })
 });
 
-router.put('/:id', [ upload.single('thumbnail'), authMiddleware ], (req, res) => {
+router.put('/:id', [ upload.single('thumbnail') ], (req, res) => {
   let productId = req.params.id;
   let updatedObject = req.body
   products.updateById(productId, updatedObject).then(function (result) {
@@ -55,7 +54,7 @@ router.put('/:id', [ upload.single('thumbnail'), authMiddleware ], (req, res) =>
   });
 });
 
-router.delete('/:id', authMiddleware, async function (req, res) {
+router.delete('/:id', async function (req, res) {
   let productId = req.params.id;
   products.deleteById(productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
