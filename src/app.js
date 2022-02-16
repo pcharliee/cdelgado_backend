@@ -18,7 +18,7 @@ import { chats } from './daos/index.js';
 import { users } from './daos/index.js'
 
 const app = express();
-const PORT = process.argv[2] || 8080;
+const PORT = process.env.PORT || 8080;
 /* Session */
 const baseSession = (session({
   store: MongoStore.create({ mongoUrl: config.mongo.sessionsUrl, ttl: 600 }),
