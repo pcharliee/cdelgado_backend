@@ -72,12 +72,14 @@ app.get('/api/random', function (req, res) {
 });
 
 app.get('/logout', async function (req, res) {
-  req.logout();
+//   req.logout();
+  req.session.destroy();
   res.status(200).send({ message: 'Logged out successfully' });
 });
 
 app.get('/get-session', async function (req, res) {
-  res.send(req.user);
+  console.log('req.session', req.session)
+  res.send(req.session);
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook', {

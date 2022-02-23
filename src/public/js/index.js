@@ -8,18 +8,18 @@ function isLoggedIn() {
     return response.json();
   })
   .then(function (json) {
-    let user = json.payload
+    console.log('JSON', json)
+    let user = json.user;
     document.getElementById('logged-user').innerHTML= `
-      <img src=${user.profilePic}>
-      <p>Hello ${user.name} ${user.last_name}<p>
-      <p>${user.email}</p>
+      <p>Hello ${user.username}<p>
     `;
   })
-    .catch(function (error) {
-      console.log('error', error)
-      location.pathname = './'
-    })
+  .catch(function (error) {
+    console.log('error', error)
+    location.pathname = './'
+  });
 }
+
 sendButton.addEventListener('click', sendMessage);
 logoutButton.addEventListener('click', logout);
 

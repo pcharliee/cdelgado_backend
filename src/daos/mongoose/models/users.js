@@ -5,7 +5,7 @@ const UsersSchema = {
   last_name:  { type: String, required: true, },
   email:      { type: String, required: true, unique: true },
   username:   { type: String },
-  profilePic: { type: String, required: true },
+  profilePic: { type: String },
   password:   { type: String, required: true }
 };
 

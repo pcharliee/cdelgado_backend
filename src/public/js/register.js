@@ -1,14 +1,14 @@
-let facebookButton = document.getElementById('facebook-btn');
+// let facebookButton = document.getElementById('facebook-btn');
 let processButton = document.getElementById('process-info');
 
 processButton.addEventListener('click', () => {
   location.pathname = '/process'
 });
 
-facebookButton.addEventListener('click', () => {
-  console.log('location', location)
-  location = `${location.origin}/auth/facebook`
-});
+// facebookButton.addEventListener('click', () => {
+//   console.log('location', location)
+//   location = `${location.origin}/auth/facebook`
+// });
 
 document.addEventListener('submit', function (evt) {
   evt.preventDefault();
@@ -20,7 +20,7 @@ document.addEventListener('submit', function (evt) {
     email: data.get('email'),
     username: data.get('username'),
     password: data.get('password')
-  }
+  };
   fetch('/register-user', {
     method: 'POST',
     body: JSON.stringify(user),
@@ -28,7 +28,7 @@ document.addEventListener('submit', function (evt) {
   })
   .then(function (response) {
     if (response.status == 200) {
-      location.replace = '/ecommerce';
+      location.pathname = '/login';
     }
     return response.json();
   })
@@ -37,5 +37,5 @@ document.addEventListener('submit', function (evt) {
   })
   .catch(function (error) {
     alert(error);
-  })
+  });
 });
