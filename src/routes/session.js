@@ -18,20 +18,6 @@ router.get('/logout', function (req, res) {
 router.post('/register', [ upload.single('avatar'), passportCall('register') ],
    async function (req, res) {
      const user = req.user.payload;
-//      const mail = {
-//        from: 'Ecommerce app <paraDarleValidez>',
-// //        to: process.env.NODEMAILER_USER,
-//        to: 'carlosm.delgador@gmail.com',
-//        subject: 'New register!',
-//        text: `A new user just registered to the ecommerce!
-//          name: ${user.name},
-//          last_name: ${user.last_name},
-//          email: ${user.email},
-//          username: ${user.username},
-//          avatar: ${user.avatar},
-//          createdAt: ${user.createdAt},
-//        `
-//      };
      await sendEmail(user);
      res.send({ message: 'Signed up' });
    }
