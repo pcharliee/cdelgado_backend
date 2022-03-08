@@ -1,5 +1,5 @@
-import MongoContainer from "../../containers/Mongo_container.js";
-import { collectionRef, CartsSchema } from "../mongoose/models/carts.js";
+import MongoContainer from "../containers/Mongo_container.js";
+import { collectionRef, CartsSchema } from "../daos/mongoose/models/carts.js";
 
 export default class CartMongo extends MongoContainer {
   constructor() {

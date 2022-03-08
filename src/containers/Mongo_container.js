@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from '../config.js';
-mongoose.connect(config.mongo.baseUrl, config.mongo.options);
+mongoose.connect(config.mongo.baseUrl, config.mongo.options).catch(error => console.log('ERROR => ', error));
 
 export default class MongoContainer {
   constructor(collection, schema) {
@@ -18,6 +18,15 @@ export default class MongoContainer {
     try {
       let documents = await this.collection.find();
       return { status: 'success', payload: documents };
+    } catch (error) {
+      return { status: 'error', message: `Error while fetching: ${error}` };
+    }
+  }
+
+  findOne = async function (option) {
+    try {
+      let result = await this.collection.findOne(option);
+      return result;
     } catch (error) {
       return { status: 'error', message: `Error while fetching: ${error}` };
     }

@@ -15,7 +15,7 @@
 </head>
 <body>
   <div id='register-container'>
-    <form id="registerForm" name="registerForm">
+    <form id="registerForm" name="registerForm" enctype="multipart/form-data">
       <h1>Register form</h1>
       <label for="name">Name</label>
       <input type="text" name="name" required>
@@ -25,6 +25,8 @@
       <input type="text" name="email" required>
       <label for="username">Username</label>
       <input type="text" name="username" required>
+      <label for="avatar">Avatar</label>
+      <input type="file" accept="image/*" name="avatar" required>
       <label for="password">Password</label>
       <input type="password" name="password" required>
       <button type='submit' id='register-btn'>Register</button>
