@@ -1,5 +1,5 @@
-import MongoContainer from "../../containers/Mongo_container.js";
-import { collectionRef, MessagesSchema } from "../mongoose/models/chats.js";
+import MongoContainer from "../containers/Mongo_container.js";
+import { collectionRef, MessagesSchema } from "../daos/mongoose/models/chats.js";
 import { normalize, denormalize, schema } from 'normalizr';
 
 export default class ChatMongo extends MongoContainer {

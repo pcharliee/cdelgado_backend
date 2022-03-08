@@ -4,10 +4,10 @@ import { users } from '../daos/index.js';
 const FacebookStrategy = fbStrategy.Strategy;
 
 const fbConfig = {
-    clientID: '657421888743969',
-    clientSecret: 'f75896ac06fd04c77af548905636a035',
-    callbackURL: 'https://8416-186-52-130-232.ngrok.io/auth/facebook/callback',
-    profileFields: [ 'emails', 'picture', 'displayName' ]
+  clientID: '657421888743969',
+  clientSecret: 'f75896ac06fd04c77af548905636a035',
+  callbackURL: 'https://8416-186-52-130-232.ngrok.io/auth/facebook/callback',
+  profileFields: [ 'emails', 'picture', 'displayName' ]
 };
 
 const initializePassportConfig = function () {
