@@ -1,19 +1,19 @@
 import { createTransport } from 'nodemailer';
+import config from '../config.js';
 
-var gmailPwd = "vedjxodszjabqtdc";
 const transport = createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PWD
+      user: config.nodemailer.USER,
+      pass: config.nodemailer.PWD
     },
 });
 
 const sendEmail = function (user) {
   const email = {
     from: 'Ecommerce app <validEmail>',
-    to: process.env.NODEMAILER_USER,
+    to: config.nodemailer.USER,
     subject: 'New register!',
     text: `A new user just registered to the ecommerce!
       name: ${user.name},

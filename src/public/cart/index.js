@@ -35,6 +35,8 @@ function checkout() {
     body: JSON.stringify(order),
     headers: { 'Content-type': 'application/json' }
   }).then(function (response) {
+    alert('Thank you. Your order will arrive in 20 minutes');
+    location.pathname = '../ecommerce'
     return response.json();
   })
 };

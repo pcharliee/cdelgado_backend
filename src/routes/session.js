@@ -1,5 +1,6 @@
 import express from 'express';
 import upload from '../services/upload.js';
+import config from '../config.js';
 import jwt from 'jsonwebtoken';
 import sendEmail from '../utils/nodemailer.js';
 import { passportCall } from '../utils/middlewares.js';
@@ -25,7 +26,7 @@ router.post('/register', [ upload.single('avatar'), passportCall('register') ],
 
 router.post('/login', passportCall('login'), function (req, res) {
   let user = req.user;
-  let token = jwt.sign(user, process.env.JWT_SECRET);
+  let token = jwt.sign(user, process.env.JWT_SECRET) 
   req.session.user = user;
   res.cookie('JWT_COOKIE', token, {
     httpOnly: true,

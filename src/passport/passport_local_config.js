@@ -1,5 +1,6 @@
 import passport from 'passport';
 import local from 'passport-local';
+import config from '../config.js';
 import jwt from 'passport-jwt';
 import { createLogger } from '../logger/logger.js';
 import { users, products } from '../daos/index.js';
@@ -10,13 +11,15 @@ const LocalStrategy = local.Strategy;
 const JWTStrategy = jwt.Strategy;
 const ExtractJwt = jwt.ExtractJwt;
 const logger = createLogger();
+
+//NOTE: temporary
 const generateRandomCart = async () => {
   let limit = 5;
   const randomProducts = [];
   let allProducts = await products.getAll();
   for (let i = 0; i < limit; i++) {
     let randomItem = Math.floor(Math.random() * allProducts.payload.length);
-    randomProducts.push(allProducts.payload[randomItem]) 
+    randomProducts.push(allProducts.payload[randomItem]);
   };
   return randomProducts;
 };
@@ -30,7 +33,7 @@ const initializePassport = () => {
 
   let jwtConfig = {
     jwtFromRequest: ExtractJwt.fromExtractors([ cookieExtractor ]),
-    secretOrKey: process.env.JWT_SECRET 
+    secretOrKey: config.jwt.SECRET 
   };
 
   passport.use('register', new LocalStrategy(registerConfig,
@@ -60,7 +63,7 @@ const initializePassport = () => {
         }
 
       } catch (error) {
-        logger.error(`REGISTER: There was an error with passport-local => ${error}`)
+        logger.error(`REGISTER: There was an error with passport-local => ${error}`);
         done(error);
       }
   }));
