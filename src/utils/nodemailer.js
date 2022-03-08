@@ -5,10 +5,8 @@ const transport = createTransport({
     service: 'gmail',
     port: 587,
     auth: {
-      user: 'carlosm.delgador@gmail.com',
-      pass: gmailPwd
-//       user: process.env.NODEMAILER_USER,
-//       pass: process.env.NODEMAILER_PWD
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PWD
     },
 });
 

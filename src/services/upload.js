@@ -4,16 +4,13 @@ import AWS from 'aws-sdk';
 import multerS3 from 'multer-s3';
 
 const s3 = new AWS.S3({
-//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: 'AKIAZ6GRQD7UKT7QFKEF',
-  secretAccessKey: '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'
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
 const storageS3 = multerS3({
   s3: s3,
-//   bucket: process.env.S3_BUCKET,
-  bucket: "cd-coderhouse-ecommerce",
+  bucket: process.env.S3_BUCKET,
   metadata: function (req, file, callback) {
     callback(null, { fieldName: file.fieldname })
   },
