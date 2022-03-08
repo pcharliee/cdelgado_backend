@@ -1,5 +1,5 @@
-import MongoContainer from "../../containers/Mongo_container.js";
-import { collectionRef, ProductsSchema } from "../mongoose/models/products.js";
+import MongoContainer from "../containers/Mongo_container.js";
+import { collectionRef, ProductsSchema } from "../daos/mongoose/models/products.js";
 
 export default class ProductMongo extends MongoContainer {
   constructor() {

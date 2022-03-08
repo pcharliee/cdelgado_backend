@@ -4,7 +4,7 @@ let logoutButton = document.getElementById('logout-button');
 let removeButton = document.querySelectorAll('.remove-item');
 
 function isLoggedIn() {
-  fetch('/get-session').then(function (response) {
+  fetch('/api/session/current').then(function (response) {
     return response.json();
   })
   .then(function (json) {
@@ -12,6 +12,7 @@ function isLoggedIn() {
     let user = json.user;
     document.getElementById('logged-user').innerHTML= `
       <p>Hello ${user.username}<p>
+      <img class="user-avatar" src=${user.avatar}>
     `;
   })
   .catch(function (error) {
@@ -24,7 +25,7 @@ sendButton.addEventListener('click', sendMessage);
 logoutButton.addEventListener('click', logout);
 
 function logout() {
-  fetch('/logout').then(function (response) {
+  fetch('/api/session/logout').then(function (response) {
     return response.json();
   })
   .then(function (json) {

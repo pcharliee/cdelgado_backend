@@ -2,6 +2,11 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+div#logged-user img.user-avatar {
+  height: 100px;
+  width: auto;
+}
+
 #registerForm  {
   display: flex;
   flex-flow: column nowrap;

@@ -1,0 +1,10 @@
+{"level":"error","message":"REGISTER: There was an error with passport-local => TypeError: Cannot read property 'filename' of undefined","timestamp":"2022-03-06T15:12:51.674Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => TypeError: done is not a function","timestamp":"2022-03-06T22:49:29.812Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => TypeError: done is not a function","timestamp":"2022-03-06T22:50:34.101Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => TypeError: Cannot read property 'messages' of undefined","timestamp":"2022-03-06T23:11:32.771Z"}
+{"level":"error","message":"REGISTER: There was an error while saving the user => TypeError: Cannot read property 'messages' of undefined","timestamp":"2022-03-06T23:24:33.181Z"}
+{"level":"error","message":"REGISTER: There was an error with passport-local => TypeError: Cannot read property 'messages' of undefined","timestamp":"2022-03-06T23:24:33.186Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => ReferenceError: email is not defined","timestamp":"2022-03-06T23:40:00.165Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => ReferenceError: email is not defined","timestamp":"2022-03-06T23:40:06.099Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => Error: USER_NOT_FOUND","timestamp":"2022-03-07T22:50:24.732Z"}
+{"level":"error","message":"LOGIN: There was an error with passport-local => Error: USER_NOT_FOUND","timestamp":"2022-03-07T22:50:33.270Z"}
