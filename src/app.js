@@ -27,7 +27,7 @@ const baseSession = (session({
   store: MongoStore.create({ mongoUrl: config.mongo.sessionsUrl, ttl: 600 }),
   resave: false,
   saveUninitialized: false,
-  secret: process.env.MONGO_SECRET,
+  secret: config.mongo.SECRET,
 }));
 
 app.use(cors());

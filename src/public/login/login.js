@@ -1,3 +1,22 @@
+window.onload = isLoggedIn();
+function isLoggedIn() {
+  fetch('/api/session/current').then(function (response) {
+    return response.json();
+  })
+  .then(function (json) {
+    user = json.user;
+    if (!!json.user) {
+      alert('Already logged in. Lets see your cart');
+      location.pathname = '../cart'
+    }
+  })
+  .catch(function (error) {
+    console.log('error', error)
+    location.pathname = './'
+  });
+}
+
+
 document.addEventListener('submit', function (evt) {
   evt.preventDefault();
   let form = document.getElementById('loginForm');
