@@ -8,3 +8,6 @@
 {"level":"error","message":"LOGIN: There was an error with passport-local => ReferenceError: email is not defined","timestamp":"2022-03-06T23:40:06.099Z"}
 {"level":"error","message":"LOGIN: There was an error with passport-local => Error: USER_NOT_FOUND","timestamp":"2022-03-07T22:50:24.732Z"}
 {"level":"error","message":"LOGIN: There was an error with passport-local => Error: USER_NOT_FOUND","timestamp":"2022-03-07T22:50:33.270Z"}
+{"level":"error","message":"JWT: There was an error with passport-jwt => TypeError: users.findOne(...).populate is not a function","timestamp":"2022-03-10T12:51:41.200Z"}
+{"level":"error","message":"JWT: There was an error with passport-jwt => TypeError: users.findOne(...).populate is not a function","timestamp":"2022-03-10T12:51:44.279Z"}
+{"level":"error","message":"JWT: There was an error with passport-jwt => TypeError: item.populate is not a function","timestamp":"2022-03-10T13:19:52.713Z"}

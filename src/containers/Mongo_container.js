@@ -25,7 +25,7 @@ export default class MongoContainer {
 
   findOne = async function (option) {
     try {
-      let result = await this.collection.findOne(option);
+      let result = await this.collection.findOne(option).populate('cart');
       return result;
     } catch (error) {
       return { status: 'error', message: `Error while fetching: ${error}` };

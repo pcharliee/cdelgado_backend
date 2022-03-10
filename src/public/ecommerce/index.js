@@ -8,7 +8,6 @@ function isLoggedIn() {
     return response.json();
   })
   .then(function (json) {
-    console.log('JSON', json)
     let user = json.user;
     document.getElementById('logged-user').innerHTML= `
       <p>Hello ${user.username}<p>

@@ -1,6 +1,5 @@
 import express from 'express';
 import upload from '../services/upload.js';
-import config from '../config.js';
 import jwt from 'jsonwebtoken';
 import sendEmail from '../utils/nodemailer.js';
 import { passportCall } from '../utils/middlewares.js';
