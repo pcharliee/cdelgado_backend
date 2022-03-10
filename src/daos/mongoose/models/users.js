@@ -9,11 +9,7 @@ const UsersSchema = {
   avatar:     { type: String },
   password:   { type: String, required: true },
   cart: {
-//     type: [
-//       { type: mongoose.Schema.Types.ObjectId, ref: 'products' }
-//     ], 
-    //NOTE: to be replaced with the above
-    type: [],
+    type: [ { type: mongoose.Schema.Types.ObjectId, ref: 'products' } ], 
     default: []
   },
 };

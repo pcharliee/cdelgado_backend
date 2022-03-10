@@ -40,7 +40,9 @@ const initializePassport = () => {
     async function (req, username, password, done) {
       try {
         if (!req.file) return done(null, false, { messages: `Couldnt get avatar` });
-        let user = await users.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] })
+        let user = await users.findOne({ $or:
+          [{ username: req.body.username }, { email: req.body.email }]
+        });
         if (user) return done(null, false, { messages: 'User already exists' });
 
         const newUser = {
@@ -101,7 +103,6 @@ const initializePassport = () => {
   });
 
   passport.deserializeUser(async function (id, done) {
-    console.log('iddd', id)
     let user = await users.findOne({ _id: id });
     done(null, user);
   });
