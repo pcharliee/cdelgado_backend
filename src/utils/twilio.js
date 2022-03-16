@@ -12,7 +12,7 @@ const sendWhatsapp = function (order) {
   `;
   return client.messages.create({
     from: `whatsapp:${config.twilio.WHATSAPP_FROM}`,
-    to: `whatsapp:${config.twilio.WHATSAPP_TO}`,
+    to:   `whatsapp:${config.twilio.WHATSAPP_TO}`,
     body: body
   });
 };

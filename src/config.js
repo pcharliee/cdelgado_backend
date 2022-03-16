@@ -33,5 +33,10 @@ export default {
     ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     S3_BUCKET: process.env.S3_BUCKET
+  },
+  facebook: {
+    CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
+    CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
+    CALLBACK_URL: process.env.FACEBOOK_CALLBACK_URL,
   }
 }
