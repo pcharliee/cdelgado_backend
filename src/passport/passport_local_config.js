@@ -1,5 +1,6 @@
 import passport from 'passport';
 import local from 'passport-local';
+import fbStrategy from 'passport-facebook';
 import config from '../config.js';
 import jwt from 'passport-jwt';
 import { createLogger } from '../logger/logger.js';
@@ -8,6 +9,7 @@ import { createHash, isPasswordValid } from '../bcrypt/bcrypt.js';
 import { cookieExtractor } from '../utils.js';
 
 const LocalStrategy = local.Strategy;
+const FacebookStrategy = fbStrategy.Strategy;
 const JWTStrategy = jwt.Strategy;
 const ExtractJwt = jwt.ExtractJwt;
 const logger = createLogger();
@@ -31,10 +33,34 @@ const initializePassport = () => {
     session: false
   };
 
+  const fbConfig = {
+    clientID: config.facebook.CLIENT_ID,
+    clientSecret: config.facebook.CLIENT_SECRET,
+    callbackURL: config.facebook.CALLBACK_URL,
+    profileFields: [ 'emails', 'picture', 'displayName' ]
+  };
+
   let jwtConfig = {
     jwtFromRequest: ExtractJwt.fromExtractors([ cookieExtractor ]),
     secretOrKey: config.jwt.SECRET 
   };
+
+  passport.use('facebook', new FacebookStrategy(fbConfig, async function (accessToken, refreshToken, profile, done) {
+    try {
+      let userProfile = {
+        name: profile.displayName.split(' ')[0],
+        last_name: profile.displayName.split(' ')[1],
+        profilePic: profile.photos[0].value,
+        password: 'N/A',
+        username: 'N/A',
+        email: profile.emails[0].value
+      }
+      let user = await users.getByEmailOrCreate(userProfile);
+      done(null, JSON.parse(JSON.stringify(user)));
+    } catch (error) {
+      done(error);
+    }
+  }));
 
   passport.use('register', new LocalStrategy(registerConfig,
     async function (req, username, password, done) {

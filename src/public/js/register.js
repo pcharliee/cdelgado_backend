@@ -1,8 +1,8 @@
-// let facebookButton = document.getElementById('facebook-btn');
-// facebookButton.addEventListener('click', () => {
-//   console.log('location', location)
-//   location = `${location.origin}/auth/facebook`
-// });
+let facebookButton = document.getElementById('facebook-btn');
+facebookButton.addEventListener('click', () => {
+  console.log('location', location.origin)
+  location = `${location.origin}/auth/facebook`
+});
 
 document.addEventListener('submit', function (evt) {
   evt.preventDefault();

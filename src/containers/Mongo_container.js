@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../config.js';
-mongoose.connect(config.mongo.baseUrl, config.mongo.options).catch(error => console.log('ERROR => ', error));
+mongoose.connect(config.mongo.baseUrl, config.mongo.options)
+  .catch(error => console.log('ERROR => ', error));
 
 export default class MongoContainer {
   constructor(collection, schema) {

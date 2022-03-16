@@ -1,22 +1,8 @@
 import express from 'express';
-import { chats } from '../daos/index.js';
-import { io } from '../app.js';
+import chatController from '../controllers/chats.js';
 
 const chatRouter = express.Router();
 
-chatRouter.post('/', function (req, res) {
-  let message = req.body;
-  message.sender.avatar = "https://image.pngaaa.com/288/1721288-middle.png"
-  
-  chats.saveOne(message)
-    .then(function (result) {
-      if (result.status == 'success')
-        chats.getChats()
-          .then(function (messages) {
-            io.emit('chat', messages);
-          })
-        res.send(result)
-    });
-});
+chatRouter.post('/', chatController.postMessage);
 
 export default chatRouter;
