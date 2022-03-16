@@ -50,9 +50,9 @@ const initializePassport = () => {
       let userProfile = {
         name: profile.displayName.split(' ')[0],
         last_name: profile.displayName.split(' ')[1],
-        profilePic: profile.photos[0].value,
+        avatar: profile.photos[0].value,
         password: 'N/A',
-        username: 'N/A',
+        username: `FB-${name}`,
         email: profile.emails[0].value
       }
       let user = await users.getByEmailOrCreate(userProfile);
