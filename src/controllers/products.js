@@ -1,11 +1,17 @@
 import { products } from '../daos/index.js';
 import { io } from '../app.js';
 import sendWhatsapp from '../utils/twilio.js';
+import ProductsDto from '../dto/products.js';
 
 const getProducts = function (req, res) {
   products.getAll().then(function (result) {
-    if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.payload);
+    if (result.status == 'error')
+      return res.status(400).send(result.message);
+    
+    let parsedProducts = result.payload.map(function (product) {
+      return new ProductsDto(product);
+    });
+    return res.status(200).send(parsedProducts);
   });
 };
 
@@ -13,7 +19,7 @@ const getProductById = async function (req, res) {
   let productId = req.params.id;
   products.getById(productId).then(function (result) {
     if (result.status == 'error') res.status(400).send(result.message);
-    else res.status(200).send(result.payload);
+    else res.status(200).send(new ProductsDto(result.payload));
   });
 };
 
