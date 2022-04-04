@@ -1,9 +1,16 @@
 import dotenv from 'dotenv'
 import __dirname from './utils.js';
-import mongoConfig from './database/mongoose/config.js';
-dotenv.config();
+import path from 'path';
+
+const configOptions = {
+  path: path.resolve(__dirname, `../${process.env.ENVIRONMENT}.env`)
+};
+dotenv.config(configOptions);
 
 export default {
+  app: {
+    port: process.env.PORT
+  },
   fileSystem: {
     baseUrl: `${__dirname}/files/`
   },
@@ -12,8 +19,8 @@ export default {
     PWD: process.env.MONGO_PWD,
     NAME: process.env.MONGO_NAME,
     SECRET: process.env.MONGO_SECRET,
-    baseUrl: `mongodb+srv://${mongoConfig.user}:${mongoConfig.pwd}@ecommerce.uznsc.mongodb.net/${mongoConfig.name}?retryWrites=true&w=majority`,
-    sessionsUrl: `mongodb+srv://${mongoConfig.user}:${mongoConfig.pwd}@ecommerce.uznsc.mongodb.net/sessions?retryWrites=true&w=majority`,
+    baseUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@ecommerce.uznsc.mongodb.net/${process.env.MONGO_NAME}?retryWrites=true&w=majority`,
+    sessionsUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@ecommerce.uznsc.mongodb.net/sessions?retryWrites=true&w=majority`,
     options: { useNewUrlParser: true, useUnifiedTopology: true }
   },
   nodemailer: {
