@@ -29,12 +29,11 @@ const checkout = async function (req, res) {
   res.send({ message: 'Checkout was successfull' });
 };
 
-//NOTE: change to upload to S3
 const addProduct = function (req, res) {
   let file = req.file;
   let newObject = req.body;
-  newObject.thumbnail 
-    = `${req.protocol}://${req.headers.host}/images/${file.filename}` || req.body.thumbnail
+  newObject.thumbnail = req.body.thumbnail
+    || `${req.protocol}://${req.headers.host}/images/${file?.filename}` ;
   products.saveOne(newObject)
     .then(result => {
       if (result.status == 'success') {
