@@ -1,11 +1,18 @@
 import express from 'express';
 import cartController from '../controllers/cart.js';
+import { passportCall, isAdmin } from '../utils/middlewares.js';
 const cartsRouter = express.Router();
 
-cartsRouter.get('/', cartController.getCarts);
+cartsRouter.get('/', [
+    passportCall('jwt'),
+    isAdmin
+  ], cartController.getCarts);
 cartsRouter.get('/:id/products', cartController.getCartById);
 
-cartsRouter.post('/', cartController.createCart);
+cartsRouter.post('/', [
+  passportCall('jwt'),
+  isAdmin
+  ], cartController.createCart);
 cartsRouter.post('/:id/products', cartController.addToCart);
 
 cartsRouter.delete('/:id', cartController.deleteCart);

@@ -25,7 +25,7 @@ const login = function (req, res) {
     httpOnly: true,
     maxAge: 1000 * 60 * 60
   });
-  res.send({ status: 'success', message: 'Successfully logged in' });
+  res.send({ status: 'success', message: 'Successfully logged in', payload: token });
 };
 
 export default {

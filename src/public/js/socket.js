@@ -18,6 +18,7 @@ socket.on('showBookCatalog', function (data) {
 });
 
 socket.on('chat', function (data) {
+  console.log('dataaa', data)
   const users = new normalizr.schema.Entity('users');
   const comments = new normalizr.schema.Entity('messages', {
     sender: users
