@@ -5,7 +5,7 @@ export default class UserMongo extends MongoContainer {
   constructor() {
     super(collectionRef, UsersSchema, { timestamps: true });
   };
-  //NOTE: maybe delete as it was for facebook...
+  /* For FB login (not implemented) */
   getByEmailOrCreate = async function (userFb) {
     try {
       let user = await this.collection.findOne({ email: userFb.email });
@@ -14,7 +14,7 @@ export default class UserMongo extends MongoContainer {
           let user = await this.collection.create(userFb)
           return user
         } catch (error) {
-          return { status: 'error', message: `Saving error; ${error}` } 
+          return { status: 'error', message: `Saving error; ${error}` };
         }
       }
       return user;

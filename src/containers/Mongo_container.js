@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 import config from '../config.js';
+import { createLogger } from '../logger/logger.js';
+
+const logger = createLogger();
 mongoose.connect(config.mongo.baseUrl, config.mongo.options)
-  .catch(error => console.log('ERROR => ', error));
+  .catch(error => {
+    logger.error('MONGOOSE CONNECTION ERROR => ', error)
+    process.exit(1);
+  });
 
 export default class MongoContainer {
   constructor(collection, schema) {
@@ -35,7 +41,7 @@ export default class MongoContainer {
 
   getById = async function (id) {
     try {
-      let document = await this.collection.findOne({ _id: id });
+      let document = await this.collection.findOne({ _id: id }).populate('products');
 
       if (!document)
         return { status: 'success', message: `Nothing found for ID: ${id}` };

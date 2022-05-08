@@ -30,7 +30,7 @@ const baseSession = (session({
   secret: config.mongo.SECRET,
 }));
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: ['http://localhost:3000', 'http://localhost:9090'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -38,10 +38,10 @@ app.use(express.static(__dirname+'/public'));
 app.use(baseSession);
 
 /* Routes */
-app.use('/api/products', productRouter);
-app.use('/api/carts', cartsRouter);
-app.use('/api/chat', chatRouter);
-app.use('/api/session', sessionRouter);
+app.use('/api/products',  productRouter);
+app.use('/api/carts',     cartsRouter);
+app.use('/api/chat',      chatRouter);
+app.use('/api/session',   sessionRouter);
 
 /* Passport */
 initializePassport();
@@ -57,7 +57,7 @@ const server = app.listen(PORT, function () {
   console.log(`Listening to port ${PORT}`);
 });
 
-export const io = new Server(server);
+export const io = new Server(server, { cors: { origin: '*' } });
 io.use(ios(baseSession));
 
 server.on('error', function (error) {
@@ -65,9 +65,6 @@ server.on('error', function (error) {
 });
 
 io.on('connection', async function (socket) {
-  console.log(`${socket.id} connected`);
-  let savedProducts = await products.getAll();
   let chatLog = await chats.getChats();
-  socket.emit('showBookCatalog', savedProducts);
   socket.emit('chat', chatLog);
 });
