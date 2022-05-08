@@ -30,7 +30,7 @@ const baseSession = (session({
   secret: config.mongo.SECRET,
 }));
 
-app.use(cors({ credentials: true, origin: [
+app.use(cors({ origin: [
   'http://cdelgado-backend.herokuapp.com',
   'http://localhost:3000',
   'http://localhost:9090',

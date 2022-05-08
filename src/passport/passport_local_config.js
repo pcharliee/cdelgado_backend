@@ -22,7 +22,8 @@ const initializePassport = () => {
   };
 
   let jwtConfig = {
-    jwtFromRequest: ExtractJwt.fromExtractors([ cookieExtractor ]),
+//     jwtFromRequest: ExtractJwt.fromExtractors([ cookieExtractor ]),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.jwt.SECRET 
   };
 
