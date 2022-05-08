@@ -16,7 +16,6 @@ import __dirname from './utils.js';
 import initializePassport from './passport/passport_local_config.js';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
-import { products } from './daos/index.js';
 import { chats } from './daos/index.js';
 
 const app = express();
@@ -27,13 +26,14 @@ const baseSession = (session({
   store: MongoStore.create({ mongoUrl: config.mongo.sessionsUrl, ttl: 600 }),
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   secret: config.mongo.SECRET,
 }));
 
 app.use(cors({ credentials: true, origin: [
+  'http://cdelgado-backend.herokuapp.com',
   'http://localhost:3000',
   'http://localhost:9090',
-  'http://cdelgado-backend.herokuapp.com'
   ] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
