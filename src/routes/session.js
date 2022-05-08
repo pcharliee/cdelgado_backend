@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/current', passportCall('jwt'), sessionController.getCurrentUser);
 router.get('/logout', sessionController.logout);
 router.get('/auth/facebook', passportCall('facebook'));
-router.get('/auth/facebook/callback', passportCall('facebook'), sessionController.login);
 
 router.post('/register',
   [ upload.single('avatar'), passportCall('register') ],

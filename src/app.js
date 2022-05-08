@@ -30,7 +30,11 @@ const baseSession = (session({
   secret: config.mongo.SECRET,
 }));
 
-app.use(cors({ credentials: true, origin: ['http://localhost:3000', 'http://localhost:9090'] }));
+app.use(cors({ credentials: true, origin: [
+  'http://localhost:3000',
+  'http://localhost:9090',
+  'http://cdelgado-backend.herokuapp.com'
+  ] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
