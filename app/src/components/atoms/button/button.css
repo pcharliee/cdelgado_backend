@@ -1,0 +1,19 @@
+div.button-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #50C878;
+}
+
+div.button-container p {
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 0;
+  box-sizing: border-box;
+}

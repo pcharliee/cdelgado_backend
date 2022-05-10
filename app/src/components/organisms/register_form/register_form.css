@@ -1,0 +1,32 @@
+div.register-form-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+
+div.register-form-container form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  min-width: 320px;
+  max-width: 700px;
+}
+
+div.register-form-container form input {
+  width: 100%;
+  margin: 5px 0;
+}
+
+div.register-form-container form div.button-container {
+ margin: 0 0 10px 0; 
+}
+
+div.register-form-container a {
+  text-decoration: none;
+}
+
+div.register-form-container div.button-container:nth-child(1) {
+  color: red;
+  text-decoration: none;
+}

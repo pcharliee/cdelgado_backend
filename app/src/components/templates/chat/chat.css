@@ -1,0 +1,63 @@
+div.chat-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+div.chat-container div.chats {
+  display: flex;
+  flex-flow: column;
+  max-height: 600px;
+  overflow: auto;
+}
+
+div.chat-container div.message-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid #000087;
+  padding: 10px;
+}
+
+div.chat-container div.message-item div.avatar-sender-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  background-color: #50c87866;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+div.chat-container div.message-item div.avatar-sender-container p {
+  margin: 0;
+}
+
+div.chat-container div.message-item p.message {
+  width: 225px;
+  text-align: left;
+  margin: 0;
+} 
+
+div.chat-container div.message-item span {
+  font-size: 10px;
+}
+
+div.chat-container div.message-item div.avatar-sender-container img {
+  height: 20px;
+}
+
+div.chat-container div.send-message-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+div.chat-container div.send-message-container input {
+  flex-basis: 80%;
+}

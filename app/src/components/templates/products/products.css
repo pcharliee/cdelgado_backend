@@ -1,0 +1,7 @@
+div.cards-container {
+  display: flex;
+  width: 90%;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 20px;
+}

@@ -1,0 +1,20 @@
+div.nav-container {
+  width: 100%;
+  margin: 0 0 30px 0;
+}
+
+div.nav-container h1 {
+  margin: 0;
+}
+
+div.nav-container div.nav-routes {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+div.nav-container img {
+  height: 80px;
+  border-radius: 50%;
+}
